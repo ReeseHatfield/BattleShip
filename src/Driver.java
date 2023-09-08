@@ -39,6 +39,7 @@ public class Driver {
 
             if ("POST".equals(method)) {
                 // Handle POST request
+                System.out.println("POST");
                 InputStream is = httpExchange.getRequestBody();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is));
                 String line;
@@ -57,7 +58,8 @@ public class Driver {
                 os.close();
             } else if ("GET".equals(method)) {
                 // Handle GET request
-                String res = clientIP + "," + userData.getOrDefault(clientIP, "0,0,0");  // Return the stored data
+                System.out.println("GET");
+                String res = clientIP + "," + userData.getOrDefault(clientIP, "0,0,0\nBruh");  // Return the stored data
                 httpExchange.sendResponseHeaders(200, res.length());
                 OutputStream os = httpExchange.getResponseBody();
                 os.write(res.getBytes());
