@@ -7,20 +7,26 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
 public class Driver {
-    public static void main(String[] args) throws IOException {
-        
-        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
-        server.createContext("/main", new BattleShipHandler());
+    public Driver() throws IOException {
+        // Bind to 0.0.0.0 to make the server accessible from any IP address
+        HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 8002), 0);
+
+        createEndpoints(server);
+
         server.setExecutor(null);
         server.start();
-
-        // bruh
-        // http://localhost:8000/main
-
     }
 
-    static class BattleShipHandler implements HttpHandler{
+    private HttpServer createEndpoints(HttpServer server) {
+        server.createContext("/main", new BattleShipHandler());
+        return server;
+    }
 
+    public static void main(String[] args) throws IOException {
+        new Driver();
+    }
+
+    static class BattleShipHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange httpExchange) throws IOException {
             String res = "RESPONSE COORDS";
@@ -30,7 +36,7 @@ public class Driver {
             httpExchange.sendResponseHeaders(statusCode, res.length());
 
             OutputStream os = httpExchange.getResponseBody();
-            os.write(res.getBytes().length);
+            os.write(res.getBytes());
             os.close();
         }
     }
