@@ -4,9 +4,8 @@ import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.UnknownHostException;
+import java.net.*;
+import java.util.Enumeration;
 
 public class Driver {
     public Driver() throws IOException {
@@ -18,11 +17,10 @@ public class Driver {
         server.setExecutor(null);
         server.start();
 
-        // Print the IP address of the server
+        // Print the local network IP address of the server
         try {
-            InetAddress ip = InetAddress.getLocalHost();
-            System.out.println("Server started. Your current IP address: " + ip.getHostAddress());
-        } catch (UnknownHostException e) {
+            System.out.println("Server started. Your local network IP address: " + getLocalNetworkIP());
+        } catch (SocketException e) {
             e.printStackTrace();
         }
     }
@@ -49,5 +47,20 @@ public class Driver {
             os.write(res.getBytes());
             os.close();
         }
+    }
+
+    public static String getLocalNetworkIP() throws SocketException {
+        Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+        while (networkInterfaces.hasMoreElements()) {
+            NetworkInterface networkInterface = networkInterfaces.nextElement();
+            Enumeration<InetAddress> inetAddresses = networkInterface.getInetAddresses();
+            while (inetAddresses.hasMoreElements()) {
+                InetAddress inetAddress = inetAddresses.nextElement();
+                if (inetAddress instanceof Inet4Address && !inetAddress.isLoopbackAddress()) {
+                    return inetAddress.getHostAddress();
+                }
+            }
+        }
+        return "Unable to find local network IP";
     }
 }
