@@ -7,8 +7,9 @@ public class Client {
     public static void main(String[] args) {
         try {
             // Replace with the IP address of the computer running the server
-            String serverIP = "192.168.1.100";
-            int serverPort = 8002;
+            // You can manually set this or fetch it from some configuration
+            String serverIP = "127.0.0.1";  // Replace with the actual IP address
+            int serverPort = 8001;
 
             URL url = new URL("http://" + serverIP + ":" + serverPort + "/main");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -26,7 +27,7 @@ public class Client {
             }
             in.close();
 
-            System.out.println("Response: " + response);
+            System.out.println("Response: " + response.toString());
 
         } catch (Exception e) {
             e.printStackTrace();

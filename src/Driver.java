@@ -4,17 +4,27 @@ import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
 
 public class Driver {
     public Driver() throws IOException {
         // Bind to 0.0.0.0 to make the server accessible from any IP address
-        HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 8002), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 8001), 0);
 
         createEndpoints(server);
 
         server.setExecutor(null);
         server.start();
+
+        // Print the IP address of the server
+        try {
+            InetAddress ip = InetAddress.getLocalHost();
+            System.out.println("Server started. Your current IP address: " + ip.getHostAddress());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
     }
 
     private HttpServer createEndpoints(HttpServer server) {
