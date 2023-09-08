@@ -2,22 +2,19 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.*;
 import java.util.Enumeration;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Driver {
+    private static ConcurrentHashMap<String, String> userData = new ConcurrentHashMap<>();  // To store user data
+
     public Driver() throws IOException {
-        // Bind to 0.0.0.0 to make the server accessible from any IP address
         HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 8001), 0);
-
         createEndpoints(server);
-
         server.setExecutor(null);
         server.start();
-
-        // Print the local network IP address of the server
         try {
             System.out.println("Server started. Your local network IP address: " + getLocalNetworkIP());
         } catch (SocketException e) {
@@ -37,15 +34,35 @@ public class Driver {
     static class BattleShipHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange httpExchange) throws IOException {
-            String res = "RESPONSE COORDS";
+            String clientIP = httpExchange.getRemoteAddress().getAddress().getHostAddress();
+            String method = httpExchange.getRequestMethod();
 
-            int statusCode = 200;
+            if ("POST".equals(method)) {
+                // Handle POST request
+                InputStream is = httpExchange.getRequestBody();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+                String line;
+                StringBuilder requestBody = new StringBuilder();
+                while ((line = reader.readLine()) != null) {
+                    requestBody.append(line);
+                }
+                reader.close();
 
-            httpExchange.sendResponseHeaders(statusCode, res.length());
+                userData.put(clientIP, requestBody.toString());  // Store the received data
 
-            OutputStream os = httpExchange.getResponseBody();
-            os.write(res.getBytes());
-            os.close();
+                String res = "Data stored successfully";
+                httpExchange.sendResponseHeaders(200, res.length());
+                OutputStream os = httpExchange.getResponseBody();
+                os.write(res.getBytes());
+                os.close();
+            } else if ("GET".equals(method)) {
+                // Handle GET request
+                String res = userData.getOrDefault(clientIP, "0,0,0,0");  // Return the stored data
+                httpExchange.sendResponseHeaders(200, res.length());
+                OutputStream os = httpExchange.getResponseBody();
+                os.write(res.getBytes());
+                os.close();
+            }
         }
     }
 
