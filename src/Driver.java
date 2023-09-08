@@ -57,7 +57,7 @@ public class Driver {
                 os.close();
             } else if ("GET".equals(method)) {
                 // Handle GET request
-                String res = userData.getOrDefault(clientIP, "0,0,0,0");  // Return the stored data
+                String res = clientIP + "," + userData.getOrDefault(clientIP, "0,0,0");  // Return the stored data
                 httpExchange.sendResponseHeaders(200, res.length());
                 OutputStream os = httpExchange.getResponseBody();
                 os.write(res.getBytes());
