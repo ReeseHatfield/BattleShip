@@ -34,12 +34,9 @@ public class Driver {
     static class BattleShipHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange httpExchange) throws IOException {
-            String clientIP = httpExchange.getRemoteAddress().getAddress().getHostAddress();
             String method = httpExchange.getRequestMethod();
 
             if ("POST".equals(method)) {
-                // Handle POST request
-                System.out.println("POST");
                 InputStream is = httpExchange.getRequestBody();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is));
                 String line;
@@ -49,7 +46,12 @@ public class Driver {
                 }
                 reader.close();
 
-                userData.put(clientIP, requestBody.toString());  // Store the received data
+                String[] parts = requestBody.toString().split(";");
+                if (parts.length == 2) {
+                    String uid = parts[0];
+                    String data = parts[1];
+                    userData.put(uid, data);  // Store the received data
+                }
 
                 String res = "Data stored successfully";
                 httpExchange.sendResponseHeaders(200, res.length());
@@ -57,12 +59,17 @@ public class Driver {
                 os.write(res.getBytes());
                 os.close();
             } else if ("GET".equals(method)) {
-                // Handle GET request
-                System.out.println("GET");
-                String res = clientIP + "," + userData.getOrDefault(clientIP, "0,0,0\nBruh");  // Return the stored data
-                httpExchange.sendResponseHeaders(200, res.length());
+                String uid = httpExchange.getRequestURI().getQuery();
+                String otherClientData = "No data from other client";
+                for (String otherUID : userData.keySet()) {
+                    if (!otherUID.equals(uid)) {
+                        otherClientData = userData.get(otherUID);
+                        break;
+                    }
+                }
+                httpExchange.sendResponseHeaders(200, otherClientData.length());
                 OutputStream os = httpExchange.getResponseBody();
-                os.write(res.getBytes());
+                os.write(otherClientData.getBytes());
                 os.close();
             }
         }
