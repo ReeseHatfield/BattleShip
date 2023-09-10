@@ -50,7 +50,13 @@ public class Client {
                         System.out.println("Enter your new Y coordinate: ");
                         yCoord = scanner.nextLine();
 
-                        // POST new data
+                        /*
+                         POST new data
+                         Format for data:
+                         UID;x,y,0;
+                         That zero is reserved for now, will be used to check win condition
+                        */
+
                         String postData = uid + ";" + xCoord + "," + yCoord + ",0";
                         URL postUrl = new URL("http://" + serverIP + ":" + serverPort + "/main");
                         HttpURLConnection postCon = (HttpURLConnection) postUrl.openConnection();
