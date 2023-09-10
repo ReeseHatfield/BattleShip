@@ -73,6 +73,9 @@ public class Server {
                 String data = parts[1];
                 userData.put(uid, data);  // Store the received data
             }
+            else{
+                throw new InvalidMoveException("Error: message cannot contain `;`");
+            }
 
             String res = "Data stored successfully";
             httpExchange.sendResponseHeaders(200, res.length());
