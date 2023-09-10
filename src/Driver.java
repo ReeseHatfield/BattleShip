@@ -23,7 +23,7 @@ public class Driver {
     }
 
     private HttpServer createEndpoints(HttpServer server) {
-        //server.createContext("/main", new BattleShipHandler());
+        server.createContext("/main", new BattleShipHandler());
         return server;
     }
 
