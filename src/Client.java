@@ -53,7 +53,7 @@ public class Client {
                         /*
                          POST new data
                          Format for data:
-                         UID;x,y,0;
+                         "UID;x,y,0"
                          That zero is reserved for now, will be used to check win condition
                         */
 
