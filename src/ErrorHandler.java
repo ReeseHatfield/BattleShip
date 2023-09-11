@@ -17,7 +17,7 @@ public class ErrorHandler {
             System.out.println("Ensure server port is not busy");
 
         } else {
-            System.out.println("Null pointer exception: " + e.getMessage());
+            System.out.println("Something went wrong: " + e.getMessage());
         }
 
         e.printStackTrace();
