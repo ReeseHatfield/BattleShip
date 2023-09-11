@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 import java.util.Timer;
@@ -12,10 +13,17 @@ public class Client {
     private static String lastData = "";
     private static String xCoord = "0";
     private static String yCoord = "0";
-    private static String uid = UUID.randomUUID().toString();  // Generate a UID for this client
+
+    // Generate a UID for this client
+    // This is generated at runtime for each client,
+    // so it is still unique per client
+    private static String uid = UUID.randomUUID().toString();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
+        //create GUI
+
         System.out.println("Enter the server IP: ");
         String serverIP = scanner.nextLine();
         Timer timer = new Timer();
@@ -71,8 +79,9 @@ public class Client {
 
                         postCon.getResponseCode();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                }
+                catch (Exception e) {
+                    ErrorHandler.handleError(e);
                 }
             }
         }, 0, 1000);  // Check every second
