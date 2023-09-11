@@ -7,6 +7,7 @@ import java.net.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Server {
+
     private static ConcurrentHashMap<String, String> userData = new ConcurrentHashMap<>();  // To store user data
 
     public Server() throws IOException {
@@ -58,6 +59,8 @@ public class Server {
         }
 
         private static void handlePOST(HttpExchange httpExchange) throws IOException {
+            final int SUCCESS_STATUS_CODE = 200;
+
             InputStream is = httpExchange.getRequestBody();
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             String line;
@@ -78,7 +81,7 @@ public class Server {
             }
 
             String res = "Data stored successfully";
-            httpExchange.sendResponseHeaders(200, res.length());
+            httpExchange.sendResponseHeaders(SUCCESS_STATUS_CODE, res.length());
             OutputStream os = httpExchange.getResponseBody();
             os.write(res.getBytes());
             os.close();
