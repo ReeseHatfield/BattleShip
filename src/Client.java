@@ -18,15 +18,13 @@ public class Client {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the server IP: ");
         String serverIP = scanner.nextLine();
-        int serverPort = 8001;
-
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 try {
                     // GET request to fetch data
-                    URL getUrl = new URL("http://" + serverIP + ":" + serverPort + "/main?" + uid);
+                    URL getUrl = new URL("http://" + serverIP + ":" + Settings.PORT_NUMBER + Settings.SERVER_ENDPOINT + "?" + uid);
                     HttpURLConnection getCon = (HttpURLConnection) getUrl.openConnection();
                     getCon.setRequestMethod("GET");
 
@@ -39,10 +37,13 @@ public class Client {
                     }
                     in.close();
 
+                    //Update board here
+
+
                     // Check if new data is received
                     if (!lastData.equals(response.toString())) {
                         lastData = response.toString();
-                        System.out.println("New data received: " + response.toString());
+                        System.out.println("New data received: " + response);
 
                         // Read new coordinates from user
                         System.out.println("Enter your new X coordinate: ");
@@ -58,7 +59,7 @@ public class Client {
                         */
 
                         String postData = uid + ";" + xCoord + "," + yCoord + ",0";
-                        URL postUrl = new URL("http://" + serverIP + ":" + serverPort + "/main");
+                        URL postUrl = new URL("http://" + serverIP + ":" + Settings.PORT_NUMBER + Settings.SERVER_ENDPOINT);
                         HttpURLConnection postCon = (HttpURLConnection) postUrl.openConnection();
                         postCon.setRequestMethod("POST");
 

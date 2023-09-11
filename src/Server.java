@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpServer;
 
 import java.io.*;
 import java.net.*;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Server {
@@ -11,7 +12,7 @@ public class Server {
     private static ConcurrentHashMap<String, String> userData = new ConcurrentHashMap<>();  // To store user data
 
     public Server() throws IOException {
-        HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 8001), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", Settings.PORT_NUMBER), 0);
         createEndpoints(server);
         server.setExecutor(null);
         server.start();
@@ -23,7 +24,7 @@ public class Server {
     }
 
     private HttpServer createEndpoints(HttpServer server) {
-        server.createContext("/main", new BattleShipHandler());
+        server.createContext(Settings.SERVER_ENDPOINT, new BattleShipHandler());
         return server;
     }
 
@@ -52,14 +53,13 @@ public class Server {
                     break;
                 }
             }
-            httpExchange.sendResponseHeaders(200, otherClientData.length());
+            httpExchange.sendResponseHeaders(Settings.HTTP_SUCCESS_CODE, otherClientData.length());
             OutputStream os = httpExchange.getResponseBody();
             os.write(otherClientData.getBytes());
             os.close();
         }
 
         private static void handlePOST(HttpExchange httpExchange) throws IOException {
-            final int SUCCESS_STATUS_CODE = 200;
 
             InputStream is = httpExchange.getRequestBody();
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -81,7 +81,7 @@ public class Server {
             }
 
             String res = "Data stored successfully";
-            httpExchange.sendResponseHeaders(SUCCESS_STATUS_CODE, res.length());
+            httpExchange.sendResponseHeaders(Settings.HTTP_SUCCESS_CODE, res.length());
             OutputStream os = httpExchange.getResponseBody();
             os.write(res.getBytes());
             os.close();
