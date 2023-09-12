@@ -44,6 +44,7 @@ public class Server {
     }
 
     public static void main(String[] args) throws IOException {
+        // IDE may complain about this, don't worry about it
         new Server();
     }
 
