@@ -1,4 +1,4 @@
-package utilities;
+package utils;
 
 public class Settings {
     // Run server on Port 8001

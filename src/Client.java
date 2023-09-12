@@ -1,5 +1,5 @@
-import utilities.ErrorHandler;
-import utilities.Settings;
+import utils.ErrorHandler;
+import utils.Settings;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
