@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
+import java.net.SocketException;
 
 public class ErrorHandler {
     public static void handleError(Exception e){
@@ -11,11 +12,13 @@ public class ErrorHandler {
         } else if (e instanceof ProtocolException) {
             System.out.println("Protocol exception: " + e.getMessage());
             System.out.println("Ensure server is live");
-
+        }
+        else if (e instanceof SocketException) {
+            System.out.println("SocketException: " + e.getMessage());
+            System.out.println("Please try terminating and restarting all server instances");
         } else if (e instanceof IOException) {
             System.out.println("I/O exception: " + e.getMessage());
             System.out.println("Ensure server port is not busy");
-
         } else {
             System.out.println("Something went wrong: " + e.getMessage());
         }
