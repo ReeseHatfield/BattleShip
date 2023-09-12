@@ -4,28 +4,39 @@ import com.sun.net.httpserver.HttpServer;
 
 import java.io.*;
 import java.net.*;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
+/*
+    Server.java
+    A simple HTTP server for exchanging battleship coordinates across
+    multiple different clients
+    *technically* a utility class since the reference to its state memory position
+    never changes. It is NOT just a utility class, don't worry if IDE
+    says to not instantiate it
+ */
 
 public class Server {
 
-    private static ConcurrentHashMap<String, String> userData = new ConcurrentHashMap<>();  // To store user data
+    // Thead-safe hashmap of <UUID, dataPassed>
+    // Could probably get away without thread safety, but it's easier if it is
+    private static final ConcurrentHashMap<String, String> userData = new ConcurrentHashMap<>();
 
+    /*
+        Server Constructor:
+        Creates an instance of this HTTP server
+        Contains a private static handler class
+     */
     public Server() throws IOException {
-        HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", Settings.PORT_NUMBER), 0);
-        createEndpoints(server);
+        HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0",
+                Settings.PORT_NUMBER), 0);
+        server.createContext(Settings.SERVER_ENDPOINT, new BattleShipHandler());
         server.setExecutor(null);
         server.start();
         try {
             System.out.println("Server started. Your local network IP address: " + Utils.getLocalNetworkIP());
         } catch (SocketException e) {
-            e.printStackTrace();
+            ErrorHandler.handleError(e);
         }
-    }
-
-    private HttpServer createEndpoints(HttpServer server) {
-        server.createContext(Settings.SERVER_ENDPOINT, new BattleShipHandler());
-        return server;
     }
 
     public static void main(String[] args) throws IOException {
