@@ -1,6 +1,10 @@
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import exceptions.InvalidMoveException;
+import utilities.ErrorHandler;
+import utilities.Settings;
+import utilities.Utils;
 
 import java.io.*;
 import java.net.*;

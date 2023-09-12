@@ -1,3 +1,5 @@
+package utilities;
+
 public class Settings {
     // Run server on Port 8001
     public static final int PORT_NUMBER;
