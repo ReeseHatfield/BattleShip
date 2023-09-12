@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 import java.util.Timer;
@@ -17,12 +16,12 @@ public class Client {
     // Generate a UID for this client
     // This is generated at runtime for each client,
     // so it is still unique per client
-    private static String uid = UUID.randomUUID().toString();
+    private final static String uid = UUID.randomUUID().toString();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        //create GUI
+        // create GUI here
 
         System.out.println("Enter the server IP: ");
         String serverIP = scanner.nextLine();
@@ -65,7 +64,6 @@ public class Client {
                          "UID;x,y,0"
                          That zero is reserved for now, will be used to check win condition
                         */
-
                         String postData = uid + ";" + xCoord + "," + yCoord + ",0";
                         URL postUrl = new URL("http://" + serverIP + ":" + Settings.PORT_NUMBER + Settings.SERVER_ENDPOINT);
                         HttpURLConnection postCon = (HttpURLConnection) postUrl.openConnection();
