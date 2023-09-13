@@ -25,6 +25,7 @@ public class Client {
         Scanner scanner = new Scanner(System.in);
 
         // create GUI here
+        Board board = new Board();
 
         System.out.println("Enter the server IP: ");
         String serverIP = scanner.nextLine();
