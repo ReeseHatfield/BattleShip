@@ -4,18 +4,19 @@ import java.awt.*;
 
 public class Backend {
     private ArrayList<Ship> ships;
+    private Scanner scnr;
 
-    public Backend(){
+    public Backend(Scanner scnr){
+        this.scnr = scnr;
         createShips();
 
-        System.out.println(this.ships.get(0).points);
 
     }
 
     /*
     Currently only adds a single ships
      */
-    public void createShips(){
+    private void createShips(){
 
         this.ships = new ArrayList<Ship>();
 
@@ -25,22 +26,24 @@ public class Backend {
         int endX;
         int endY;
 
-        Scanner scnr = new Scanner(System.in);
 
-        System.out.println("Start X: ");
-        startX = scnr.nextInt();
+        for (int i = 0; i < 5; i++) {
+            System.out.println("MAKING SHIP " + i);
+            System.out.println("Start X: ");
+            startX = scnr.nextInt();
 
-        System.out.println("Start Y: ");
-        startY = scnr.nextInt();
+            System.out.println("Start Y: ");
+            startY = scnr.nextInt();
 
-        System.out.println("End X: ");
-        endX = scnr.nextInt();
+            System.out.println("End X: ");
+            endX = scnr.nextInt();
 
-        System.out.println("End Y: ");
-        endY = scnr.nextInt();
+            System.out.println("End Y: ");
+            endY = scnr.nextInt();
 
-        scnr.close();
-        ships.add(new Ship(startX, startY, endX, endY));
+            ships.add(new Ship(startX, startY, endX, endY));
+        }
+
 
 
     }
@@ -49,6 +52,7 @@ public class Backend {
         for(Ship s : this.ships){
             for(Point p : s.points){
                 if(p.x == x && p.y == y){
+                    s.hit(p);
                     return true;
                 }
             }
@@ -57,10 +61,17 @@ public class Backend {
         return false;
     }
 
+    public ArrayList<Point> getPointsHit(){
+        ArrayList<Point> allPointsHit = new ArrayList<>();
+        for(Ship s : this.ships){
+            allPointsHit.addAll(s.hitPoints);
+        }
 
-    public static void main(String[] args) {
-        Backend backend = new Backend();
-        System.out.println(backend.tryHit(4,4));
+        return allPointsHit;
+
+    }
+    public ArrayList<Ship> getShips() {
+        return ships;
     }
 
 }

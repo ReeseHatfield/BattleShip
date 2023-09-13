@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class Ship {
     public ArrayList<Point> points = new ArrayList<>();
+    public ArrayList<Point> hitPoints = new ArrayList<>();
 
     public Ship(int startX, int startY, int endX, int endY){
 
@@ -19,5 +20,10 @@ public class Ship {
             }
         }
 
+    }
+
+    public void hit(Point p){
+        //Call copy constructor; maybe unnecessary
+        this.hitPoints.add(new Point(p));
     }
 }

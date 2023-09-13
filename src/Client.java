@@ -1,6 +1,7 @@
 import utils.ErrorHandler;
 import utils.Settings;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -13,8 +14,8 @@ import java.util.UUID;
 
 public class Client {
     private static String lastData = "";
-    private static String xCoord = "0";
-    private static String yCoord = "0";
+    private static int xCoord = 0;
+    private static int yCoord = 0;
 
     // Generate a UID for this client
     // This is generated at runtime for each client,
@@ -26,8 +27,15 @@ public class Client {
 
         // create GUI here
         Board board = new Board();
+        Backend backend = new Backend(scanner);
+        for (Ship s : backend.getShips()) {
+            for (Point p : s.points) {
+                board.playerPanelList.get(p.y*10+p.x).setBackground(Color.PINK);
+            }
+        }
 
         System.out.println("Enter the server IP: ");
+        scanner.nextLine();
         String serverIP = scanner.nextLine();
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -58,9 +66,11 @@ public class Client {
 
                         // Read new coordinates from user
                         System.out.println("Enter your new X coordinate: ");
-                        xCoord = scanner.nextLine();
+                        xCoord = scanner.nextInt();
                         System.out.println("Enter your new Y coordinate: ");
-                        yCoord = scanner.nextLine();
+                        yCoord = scanner.nextInt();
+
+                        board.oPanelList.get(yCoord*10+xCoord).setBackground(Color.BLACK);
 
                         /*
                          POST new data
