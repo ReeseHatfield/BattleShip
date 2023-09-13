@@ -57,12 +57,16 @@ public class Client {
                     in.close();
 
                     //Update board here
-                    String[] parts = response.toString().split(";");
-                    String[] data = parts[2].split(",");
-                    int responseX = Integer.parseInt(data[0]);
-                    int responseY = Integer.parseInt(data[1]);
+                    if (!response.toString().equals("No data from other client")) {
+                        System.out.println(response.toString());
 
-                    board.playerPanelList.get(responseY*10+responseX);
+                        String[] parts = response.toString().split(";");
+                        String[] data = parts[1].split(",");
+                        int responseX = Integer.parseInt(data[0]);
+                        int responseY = Integer.parseInt(data[1]);
+
+                        board.playerPanelList.get(responseY*10+responseX).setBackground(Color.RED);
+                    }
 
 
 
