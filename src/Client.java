@@ -57,6 +57,13 @@ public class Client {
                     in.close();
 
                     //Update board here
+                    String[] parts = response.toString().split(";");
+                    String[] data = parts[2].split(",");
+                    int responseX = Integer.parseInt(data[0]);
+                    int responseY = Integer.parseInt(data[1]);
+
+                    board.playerPanelList.get(responseY*10+responseX);
+
 
 
                     // Check if new data is received

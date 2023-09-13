@@ -6,15 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="757fcef0-4ef3-4909-9e8a-6f4746d461c2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Backend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/battleship.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/battleship.jpg" afterDir="false" />
     </list>
-    <list id="8f4037a7-543b-4a10-b412-e926bca0ce23" name="Changes by reesehatfield" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Backend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ship.java" afterDir="false" />
-    </list>
+    <list id="8f4037a7-543b-4a10-b412-e926bca0ce23" name="Changes by reesehatfield" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,26 +23,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/Backend.java">
-      <ranges>
-        <range start1="6" end1="6" start2="6" end2="7" changelist="757fcef0-4ef3-4909-9e8a-6f4746d461c2" />
-        <range start1="7" end1="8" start2="8" end2="10" changelist="757fcef0-4ef3-4909-9e8a-6f4746d461c2" />
-        <range start1="10" end1="11" start2="12" end2="12" changelist="8f4037a7-543b-4a10-b412-e926bca0ce23" />
-        <range start1="17" end1="18" start2="18" end2="19" changelist="8f4037a7-543b-4a10-b412-e926bca0ce23" />
-        <range start1="27" end1="28" start2="28" end2="28" changelist="757fcef0-4ef3-4909-9e8a-6f4746d461c2" />
-        <range start1="29" end1="31" start2="29" end2="33" changelist="757fcef0-4ef3-4909-9e8a-6f4746d461c2" />
-        <range start1="32" end1="34" start2="34" end2="36" changelist="757fcef0-4ef3-4909-9e8a-6f4746d461c2" />
-        <range start1="35" end1="37" start2="37" end2="39" changelist="757fcef0-4ef3-4909-9e8a-6f4746d461c2" />
-        <range start1="38" end1="40" start2="40" end2="42" changelist="757fcef0-4ef3-4909-9e8a-6f4746d461c2" />
-        <range start1="41" end1="43" start2="43" end2="46" changelist="757fcef0-4ef3-4909-9e8a-6f4746d461c2" />
-        <range start1="51" end1="51" start2="54" end2="55" changelist="8f4037a7-543b-4a10-b412-e926bca0ce23" />
-        <range start1="59" end1="59" start2="63" end2="68" changelist="8f4037a7-543b-4a10-b412-e926bca0ce23" />
-        <range start1="60" end1="63" start2="69" end2="71" changelist="8f4037a7-543b-4a10-b412-e926bca0ce23" />
-        <range start1="64" end1="64" start2="72" end2="75" changelist="757fcef0-4ef3-4909-9e8a-6f4746d461c2" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -124,7 +98,7 @@
       <workItem from="1694203937519" duration="864000" />
       <workItem from="1694204824240" duration="153000" />
       <workItem from="1694205073883" duration="761000" />
-      <workItem from="1694631906441" duration="14242000" />
+      <workItem from="1694631906441" duration="14811000" />
     </task>
     <servers />
   </component>
