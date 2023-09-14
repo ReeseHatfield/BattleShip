@@ -20,7 +20,30 @@ public class Board {
         GridBagConstraints c = new GridBagConstraints();
 
         for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+            for (int j = 0; j < 11; j++) {
+                if (j == 0) {
+                    JLabel leftSide = new JLabel("" + (char) ('A'+i), SwingConstants.CENTER);
+                    leftSide.setBackground(new Color(255,255,255,120));
+                    leftSide.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                    if (j == 10) {
+                        c.ipadx = 19;
+                        c.ipady = 20;
+                        c.gridx = j;
+                        c.gridy = i+1;
+                        leftSide.setBackground(Color.PINK);
+                        leftSide.setOpaque(true);
+                        root.add(leftSide,c);
+                        continue;
+                    }
+                    c.ipadx = 20;
+                    c.ipady = 20;
+                    c.gridx = j;
+                    c.gridy = i+1;
+                    leftSide.setBackground(Color.PINK);
+                    leftSide.setOpaque(true);
+                    root.add(leftSide,c);
+                    continue;
+                }
                 HittableButton p = new HittableButton();
                 p.setBackground(new Color(255,255,255,120));
                 p.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -36,17 +59,27 @@ public class Board {
                 root.add(p, c);
                 playerPanelList.add(p);
 
+                JLabel topRow = new JLabel("" + j,SwingConstants.CENTER);
+                topRow.setBackground(new Color(255,255,255,120));
+                topRow.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                c.ipadx = 30;
+                c.ipady = 20;
+                c.gridx = j;
+                c.gridy = 0;
+                topRow.setOpaque(true);
+                root.add(topRow, c);
+
                 }
                 HittablePanel p = new HittablePanel();
                 p.setOpaque(false);
                 c.ipadx = 100;
                 c.ipady = 20;
-                c.gridx = 10;
+                c.gridx = 11;
                 //GRIDY!!!!
                 c.gridy = i+1;
                 root.add(p,c);
 
-            for (int j = 11; j < 21; j++) {
+            for (int j = 12; j < 22; j++) {
                 HittableButton oPanels = new HittableButton();
                 oPanels.setBackground(new Color(255,255,255,120));
                 oPanels.setBorder(BorderFactory.createLineBorder(Color.BLACK));

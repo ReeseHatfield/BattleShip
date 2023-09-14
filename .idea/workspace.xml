@@ -7,8 +7,6 @@
     <list default="true" id="757fcef0-4ef3-4909-9e8a-6f4746d461c2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HittableButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HittableButton.java" afterDir="false" />
     </list>
     <list id="8f4037a7-543b-4a10-b412-e926bca0ce23" name="Changes by reesehatfield" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -112,7 +110,7 @@
       <workItem from="1694696007898" duration="1649000" />
       <workItem from="1694698909306" duration="1072000" />
       <workItem from="1694702191020" duration="14146000" />
-      <workItem from="1694720365939" duration="1174000" />
+      <workItem from="1694720365939" duration="4107000" />
     </task>
     <servers />
   </component>
