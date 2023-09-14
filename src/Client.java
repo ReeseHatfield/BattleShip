@@ -30,9 +30,9 @@ public class Client {
         Backend backend = new Backend(scanner);
         for (Ship s : backend.getShips()) {
             for (Point p : s.points) {
-                HittablePanel panel = board.playerPanelList.get(p.y*10+p.x);
-                panel.setBackground(Color.GREEN);
-                panel.setShipStatus(true);
+                HittableButton button = board.playerPanelList.get(p.y*10+p.x);
+                button.setBackground(Color.GREEN);
+                button.setShipStatus(true);
 
             }
         }
@@ -69,8 +69,8 @@ public class Client {
                         int responseX = Integer.parseInt(parts[0]);
                         int responseY = Integer.parseInt(parts[1]);
 
-                        HittablePanel panel = board.playerPanelList.get(responseY*10+responseX);
-                        if (panel.hit()) {
+                        HittableButton button = board.playerPanelList.get(responseY*10+responseX);
+                        if (button.hit()) {
                             board.setHealth(board.getHealth()-1);
                         }
                         /*if (panel.shipStatus() && !panel.isHit) {

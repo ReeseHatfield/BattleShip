@@ -6,11 +6,12 @@ import java.util.TimerTask;
 import javax.swing.border.Border;
 
 public class Board {
-    ArrayList<HittablePanel> playerPanelList = new ArrayList<>();
-    ArrayList<HittablePanel> oPanelList = new ArrayList<>();
+    ArrayList<HittableButton> playerPanelList = new ArrayList<>();
+    ArrayList<HittableButton> oPanelList = new ArrayList<>();
     JFrame frame = new JFrame();
-    int health = 15;
+    int health = 2;
     boolean lost = false;
+    boolean isTurn = true;
 
     public Board() {
         PicturePanel root = new PicturePanel("battleship.jpg");
@@ -20,15 +21,18 @@ public class Board {
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                HittablePanel p = new HittablePanel();
+                HittableButton p = new HittableButton();
                 p.setBackground(new Color(255,255,255,120));
                 p.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
                 p.setOpaque(true);
-                c.ipadx = 20;
-                c.ipady = 20;
+                c.ipadx = 40;
+                c.ipady = 40;
                 c.gridx = j;
                 c.gridy = i + 1;
+                p.addActionListener(e -> {
+                    System.out.println("button " + p.isShip);
+                });
+                p.setEnabled(false);
                 root.add(p, c);
                 playerPanelList.add(p);
 
@@ -43,15 +47,21 @@ public class Board {
                 root.add(p,c);
 
             for (int j = 11; j < 21; j++) {
-                HittablePanel oPanels = new HittablePanel();
+                HittableButton oPanels = new HittableButton();
                 oPanels.setBackground(new Color(255,255,255,120));
                 oPanels.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
                 oPanels.setOpaque(true);
-                c.ipadx = 20;
-                c.ipady = 20;
+                c.ipadx = 40;
+                c.ipady = 40;
                 c.gridx = j;
                 c.gridy = i + 1;
+                oPanels.addActionListener(e -> {
+                    if (isTurn) {
+                        oPanels.hit();
+                        isTurn = false;
+                    }
+                });
                 root.add(oPanels, c);
                 oPanelList.add(oPanels);
             }
