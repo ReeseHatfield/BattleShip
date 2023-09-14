@@ -30,7 +30,10 @@ public class Client {
         Backend backend = new Backend(scanner);
         for (Ship s : backend.getShips()) {
             for (Point p : s.points) {
-                board.playerPanelList.get(p.y*10+p.x).setBackground(Color.PINK);
+                HittablePanel panel = board.playerPanelList.get(p.y*10+p.x);
+                panel.setBackground(Color.GREEN);
+                panel.setShipStatus(true);
+
             }
         }
 
@@ -57,6 +60,7 @@ public class Client {
                     in.close();
 
                     //Update board here
+                    //check other strings for game setup so two players connect
                     if (!response.toString().equals("No data from other client")) {
                         System.out.println(response.toString());
 
@@ -65,7 +69,18 @@ public class Client {
                         int responseX = Integer.parseInt(parts[0]);
                         int responseY = Integer.parseInt(parts[1]);
 
-                        board.playerPanelList.get(responseY*10+responseX).setBackground(Color.RED);
+                        HittablePanel panel = board.playerPanelList.get(responseY*10+responseX);
+                        if (panel.hit()) {
+                            board.setHealth(board.getHealth()-1);
+                        }
+                        /*if (panel.shipStatus() && !panel.isHit) {
+                            board.setHealth(board.getHealth()-1);
+                            panel.setHit();
+                            panel.setBackground(Color.RED);
+                        } else if (!panel.isHit) {
+                            panel.setHit();
+                            panel.setBackground(Color.BLACK);
+                        }*/
                     }
 
 
@@ -89,7 +104,15 @@ public class Client {
                          "UID;x,y,0"
                          That zero is reserved for now, will be used to check win condition
                         */
-                        String postData = uid + ";" + xCoord + "," + yCoord + ",0";
+                        String postData = uid + ";" + xCoord + "," + yCoord;
+                        if (board.getHealth() == 0) {
+                            postData += ",1";
+                            board.losingMenu();
+                        } else {
+                            postData += ",0";
+                            //do nothing?
+                        }
+                        //board.losingMenu();
                         URL postUrl = new URL("http://" + serverIP + ":" + Settings.PORT_NUMBER + Settings.SERVER_ENDPOINT);
                         HttpURLConnection postCon = (HttpURLConnection) postUrl.openConnection();
                         postCon.setRequestMethod("POST");

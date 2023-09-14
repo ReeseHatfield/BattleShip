@@ -6,11 +6,13 @@ import java.util.TimerTask;
 import javax.swing.border.Border;
 
 public class Board {
-    ArrayList<JPanel> playerPanelList = new ArrayList<>();
-    ArrayList<JPanel> oPanelList = new ArrayList<>();
+    ArrayList<HittablePanel> playerPanelList = new ArrayList<>();
+    ArrayList<HittablePanel> oPanelList = new ArrayList<>();
+    JFrame frame = new JFrame();
+    int health = 15;
+    boolean lost = false;
 
     public Board() {
-        JFrame frame = new JFrame();
         PicturePanel root = new PicturePanel("battleship.jpg");
         GridBagLayout lay = new GridBagLayout();
         root.setLayout(lay);
@@ -18,7 +20,7 @@ public class Board {
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                JPanel p = new JPanel();
+                HittablePanel p = new HittablePanel();
                 p.setBackground(new Color(255,255,255,120));
                 p.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -31,7 +33,7 @@ public class Board {
                 playerPanelList.add(p);
 
                 }
-                JPanel p = new JPanel();
+                HittablePanel p = new HittablePanel();
                 p.setOpaque(false);
                 c.ipadx = 100;
                 c.ipady = 20;
@@ -41,7 +43,7 @@ public class Board {
                 root.add(p,c);
 
             for (int j = 11; j < 21; j++) {
-                JPanel oPanels = new JPanel();
+                HittablePanel oPanels = new HittablePanel();
                 oPanels.setBackground(new Color(255,255,255,120));
                 oPanels.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -63,7 +65,9 @@ public class Board {
         t.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                root.repaint();
+                if (!lost) {
+                    root.repaint();
+                }
             }
         },0,1000);
 
@@ -76,5 +80,26 @@ public class Board {
 
     public void changePanelColor(int side, int panel, Color bg) {
         playerPanelList.get(panel).setBackground(bg);
+    }
+    public int getHealth() {
+        System.out.println(health);
+        return health;
+    }
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void losingMenu() {
+        PicturePanel loss = new PicturePanel("loss.jpg");
+        /*JLabel losingText = new JLabel("YOU LOST");
+        loss.add(losingText);*/
+        frame.dispose();
+        JFrame frame = new JFrame();
+        frame.getContentPane().add(loss);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1400,760);
+        frame.setVisible(true);
+        frame.setResizable(false);
+
     }
 }
