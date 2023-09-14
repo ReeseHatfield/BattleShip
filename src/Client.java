@@ -60,10 +60,10 @@ public class Client {
                     if (!response.toString().equals("No data from other client")) {
                         System.out.println(response.toString());
 
-                        String[] parts = response.toString().split(";");
-                        String[] data = parts[1].split(",");
-                        int responseX = Integer.parseInt(data[0]);
-                        int responseY = Integer.parseInt(data[1]);
+                        String[] parts = response.toString().split(",");
+                        //String[] data = parts[1].split(",");
+                        int responseX = Integer.parseInt(parts[0]);
+                        int responseY = Integer.parseInt(parts[1]);
 
                         board.playerPanelList.get(responseY*10+responseX).setBackground(Color.RED);
                     }
