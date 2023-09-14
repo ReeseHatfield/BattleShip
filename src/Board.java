@@ -9,7 +9,7 @@ public class Board {
     ArrayList<HittableButton> playerPanelList = new ArrayList<>();
     ArrayList<HittableButton> oPanelList = new ArrayList<>();
     JFrame frame = new JFrame();
-    int health = 2;
+    int health = 15;
     boolean lost = false;
     boolean isTurn = true;
 
@@ -110,6 +110,18 @@ public class Board {
         frame.setSize(1400,760);
         frame.setVisible(true);
         frame.setResizable(false);
+    }
 
+    public void winningMenu() {
+        PicturePanel loss = new PicturePanel("pepewin.jpg");
+        /*JLabel losingText = new JLabel("YOU LOST");
+        loss.add(losingText);*/
+        frame.dispose();
+        JFrame frame = new JFrame();
+        frame.getContentPane().add(loss);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1400,760);
+        frame.setVisible(true);
+        frame.setResizable(false);
     }
 }

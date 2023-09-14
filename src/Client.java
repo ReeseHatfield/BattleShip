@@ -69,6 +69,10 @@ public class Client {
                         int responseX = Integer.parseInt(parts[0]);
                         int responseY = Integer.parseInt(parts[1]);
 
+                        if (Integer.parseInt(parts[2]) == 1) {
+                            board.winningMenu();
+                        }
+
                         HittableButton button = board.playerPanelList.get(responseY*10+responseX);
                         if (button.hit()) {
                             board.setHealth(board.getHealth()-1);

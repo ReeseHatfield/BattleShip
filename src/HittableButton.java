@@ -30,12 +30,12 @@ public class HittableButton extends JButton {
             this.setBackground(Color.RED);
             this.setEnabled(false);
             return true;
-        } else {//if (!this.isHit) {
+        } else if (!this.isHit) {
             isHit = true;
             this.setBackground(Color.BLACK);
             this.setEnabled(false);
             return false;
         }
-        //return false;
+        return false;
     }
 }
