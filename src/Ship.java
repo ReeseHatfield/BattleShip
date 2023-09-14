@@ -15,7 +15,7 @@ public class Ship {
             }
         }
         else{
-            for(int i = startX; i <= endY; i ++){
+            for(int i = startX; i <= endX; i ++){
                 points.add(new Point(i, startY));
             }
         }

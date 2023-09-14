@@ -13,9 +13,7 @@ public class Backend {
 
     }
 
-    /*
-    Currently only adds a single ships
-     */
+
     private void createShips(){
 
         this.ships = new ArrayList<Ship>();
@@ -42,6 +40,13 @@ public class Backend {
             endY = scnr.nextInt();
 
             ships.add(new Ship(startX, startY, endX, endY));
+        }
+
+        System.out.println("ALL SHIP POINTS:");
+        for(Ship s : this.ships){
+            for (Point p : s.points){
+                System.out.println("X: " + p.x + " Y: " + p.y);
+            }
         }
 
 
