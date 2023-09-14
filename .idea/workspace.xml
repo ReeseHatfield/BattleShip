@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="757fcef0-4ef3-4909-9e8a-6f4746d461c2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board.java" afterDir="false" />
     </list>
     <list id="8f4037a7-543b-4a10-b412-e926bca0ce23" name="Changes by reesehatfield" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -46,6 +46,7 @@
     "WebServerToolWindowFactoryState": "false",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "20",
     "last_opened_file_path": "C:/Users/johnt/githubDirectories/BattleShip",
     "node.js.detected.package.eslint": "true",
@@ -56,7 +57,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "editor.preferences.import",
+    "settings.editor.selected.configurable": "editor.preferences.appearance",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -99,6 +100,9 @@
       <workItem from="1694204824240" duration="153000" />
       <workItem from="1694205073883" duration="761000" />
       <workItem from="1694631906441" duration="16124000" />
+      <workItem from="1694652818971" duration="128000" />
+      <workItem from="1694653115469" duration="159000" />
+      <workItem from="1694662668188" duration="1104000" />
     </task>
     <servers />
   </component>
