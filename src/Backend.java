@@ -13,6 +13,9 @@ public class Backend {
 
     }
 
+    private boolean isOutOfBounds(int toCheck){
+        return (toCheck < 0 || toCheck > 9);
+    }
 
     private void createShips(){
 
@@ -40,6 +43,12 @@ public class Backend {
             endY = scnr.nextInt();
 
             ships.add(new Ship(startX, startY, endX, endY));
+
+            if(isOutOfBounds(startX) || isOutOfBounds(startY) || isOutOfBounds(endX) || isOutOfBounds(endY)){
+                System.out.println("Error");
+                i--;
+                continue;
+            }
         }
 
         System.out.println("ALL SHIP POINTS:");

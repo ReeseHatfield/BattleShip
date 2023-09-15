@@ -10,18 +10,21 @@ public class Board {
     ArrayList<HittableButton> oPanelList = new ArrayList<>();
     JFrame frame = new JFrame();
     Backend backend;
-    int health = 15;
+    int health = 0;
     boolean lost = false;
     boolean isTurn = true;
+    int i = 0;
+    int j = 0;
 
-    public Board() {
+    private Client client;
+    public Board(Client client) {
+        this.client = client;
         PicturePanel root = new PicturePanel("battleship.jpg");
         GridBagLayout lay = new GridBagLayout();
         root.setLayout(lay);
         GridBagConstraints c = new GridBagConstraints();
-
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 11; j++) {
+        for (i = 0; i < 10; i++) {
+            for (j = 0; j < 11; j++) {
                 if (j == 0) {
                     JLabel leftSide = new JLabel("" + (char) ('A'+i), SwingConstants.CENTER);
                     leftSide.setBackground(new Color(255,255,255,120));
@@ -81,7 +84,7 @@ public class Board {
                 c.gridy = i+1;
                 root.add(p,c);
 
-            for (int j = 12; j < 23; j++) {
+            for (j = 12; j < 23; j++) {
                 if (j == 12) {
                     JLabel leftSide = new JLabel("" + (char) ('A'+i), SwingConstants.CENTER);
                     leftSide.setBackground(new Color(255,255,255,120));
@@ -105,7 +108,7 @@ public class Board {
                     root.add(leftSide,c);
                     continue;
                 }
-                HittableButton oPanels = new HittableButton();
+                HittableButton oPanels = new HittableButton(j, i+1, this);
                 oPanels.setBackground(new Color(255,255,255,120));
                 oPanels.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -114,12 +117,21 @@ public class Board {
                 c.ipady = 40;
                 c.gridx = j;
                 c.gridy = i + 1;
-                oPanels.addActionListener(e -> {
+
+                oPanels.setAction();
+
+
+                /*oPanels.addActionListener(e -> {
                     if (isTurn) {
+                        int x = j-19;
+                        int y = i-10;
+                        System.out.println("X" + x + "\nY" + y);
+                        client.postData(x, y, this);
                         oPanels.hit();
-                        isTurn = false;
+                        oPanels.setEnabled(false);
+                        //isTurn = false;
                     }
-                });
+                });*/
                 root.add(oPanels, c);
                 oPanelList.add(oPanels);
 
@@ -191,5 +203,8 @@ public class Board {
         frame.setSize(1400,760);
         frame.setVisible(true);
         frame.setResizable(false);
+    }
+    public Client getClient() {
+        return client;
     }
 }
