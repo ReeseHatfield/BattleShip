@@ -9,6 +9,7 @@ public class Board {
     ArrayList<HittableButton> playerPanelList = new ArrayList<>();
     ArrayList<HittableButton> oPanelList = new ArrayList<>();
     JFrame frame = new JFrame();
+    Backend backend;
     int health = 15;
     boolean lost = false;
     boolean isTurn = true;
@@ -38,7 +39,7 @@ public class Board {
                     c.ipadx = 20;
                     c.ipady = 20;
                     c.gridx = j;
-                    c.gridy = i+1;
+                    c.gridy = i + 1;
                     leftSide.setBackground(Color.PINK);
                     leftSide.setOpaque(true);
                     root.add(leftSide,c);
@@ -56,6 +57,7 @@ public class Board {
                     System.out.println("button " + p.isShip);
                 });
                 p.setEnabled(false);
+
                 root.add(p, c);
                 playerPanelList.add(p);
 
@@ -79,7 +81,30 @@ public class Board {
                 c.gridy = i+1;
                 root.add(p,c);
 
-            for (int j = 12; j < 22; j++) {
+            for (int j = 12; j < 23; j++) {
+                if (j == 12) {
+                    JLabel leftSide = new JLabel("" + (char) ('A'+i), SwingConstants.CENTER);
+                    leftSide.setBackground(new Color(255,255,255,120));
+                    leftSide.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                    if (j == 21) {
+                        c.ipadx = 19;
+                        c.ipady = 20;
+                        c.gridx = j;
+                        c.gridy = i+1;
+                        leftSide.setBackground(Color.PINK);
+                        leftSide.setOpaque(true);
+                        root.add(leftSide,c);
+                        continue;
+                    }
+                    c.ipadx = 20;
+                    c.ipady = 20;
+                    c.gridx = j;
+                    c.gridy = i+1;
+                    leftSide.setBackground(Color.PINK);
+                    leftSide.setOpaque(true);
+                    root.add(leftSide,c);
+                    continue;
+                }
                 HittableButton oPanels = new HittableButton();
                 oPanels.setBackground(new Color(255,255,255,120));
                 oPanels.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -97,6 +122,16 @@ public class Board {
                 });
                 root.add(oPanels, c);
                 oPanelList.add(oPanels);
+
+                JLabel topRow = new JLabel("" + (j-12),SwingConstants.CENTER);
+                topRow.setBackground(new Color(255,255,255,120));
+                topRow.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                c.ipadx = 30;
+                c.ipady = 20;
+                c.gridx = j;
+                c.gridy = 0;
+                topRow.setOpaque(true);
+                root.add(topRow, c);
             }
 
 

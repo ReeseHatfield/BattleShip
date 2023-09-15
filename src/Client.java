@@ -25,9 +25,11 @@ public class Client {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+
+        Backend backend = new Backend(scanner);
         // create GUI here
         Board board = new Board();
-        Backend backend = new Backend(scanner);
+
         for (Ship s : backend.getShips()) {
             for (Point p : s.points) {
                 HittableButton button = board.playerPanelList.get(p.y*10+p.x);
@@ -64,41 +66,54 @@ public class Client {
                     if (!response.toString().equals("No data from other client")) {
                         System.out.println(response.toString());
 
+                        //Expected string UUID;x,y,didHit,didWin
                         String[] parts = response.toString().split(",");
-                        //String[] data = parts[1].split(",");
                         int responseX = Integer.parseInt(parts[0]);
                         int responseY = Integer.parseInt(parts[1]);
 
-                        if (Integer.parseInt(parts[2]) == 1) {
+                        //Win before more shooting
+                        if (Integer.parseInt(parts[3]) == 1) {
                             board.winningMenu();
                         }
 
-                        HittableButton button = board.playerPanelList.get(responseY*10+responseX);
-                        if (button.hit()) {
-                            board.setHealth(board.getHealth()-1);
+                        //No win, so check if hit
+                        //if hit, send back hit without firing request
+                        if (Integer.parseInt(parts[2]) == 1) { //Change this to check hit status
+                            //POST with hit
+                            //if xCoord || yCoord > 9 do not fire anything
+                            String postData = uid + ";" + "10" + "," + "10";
                         }
-                        /*if (panel.shipStatus() && !panel.isHit) {
-                            board.setHealth(board.getHealth()-1);
-                            panel.setHit();
-                            panel.setBackground(Color.RED);
-                        } else if (!panel.isHit) {
-                            panel.setHit();
-                            panel.setBackground(Color.BLACK);
-                        }*/
+
+
+                        if (xCoord > 9 || yCoord > 9) {
+                            HittableButton button = board.playerPanelList.get(responseY*10+responseX);
+                            if (button.hit()) {
+                                board.setHealth(board.getHealth()-1);
+                            }
+                        }
                     }
-
-
 
                     // Check if new data is received
                     if (!lastData.equals(response.toString())) {
                         lastData = response.toString();
                         System.out.println("New data received: " + response);
 
+                        boolean validInput = false;
+                        while(!validInput){
+                             System.out.println("Enter your new X coordinate: ");
+                             xCoord = scanner.nextInt();
+                             System.out.println("Enter your new Y coordinate: ");
+                             yCoord = scanner.nextInt();
+
+                             validInput = ((0 <= xCoord && xCoord <= 9) && (0 <= yCoord && yCoord <= 9));
+
+                             if(!validInput) {
+                                 System.out.println("Invalid input, must be between 0 and 9");
+                             }
+
+                        }
                         // Read new coordinates from user
-                        System.out.println("Enter your new X coordinate: ");
-                        xCoord = scanner.nextInt();
-                        System.out.println("Enter your new Y coordinate: ");
-                        yCoord = scanner.nextInt();
+
 
                         board.oPanelList.get(yCoord*10+xCoord).setBackground(Color.BLACK);
 
@@ -114,9 +129,7 @@ public class Client {
                             board.losingMenu();
                         } else {
                             postData += ",0";
-                            //do nothing?
                         }
-                        //board.losingMenu();
                         URL postUrl = new URL("http://" + serverIP + ":" + Settings.PORT_NUMBER + Settings.SERVER_ENDPOINT);
                         HttpURLConnection postCon = (HttpURLConnection) postUrl.openConnection();
                         postCon.setRequestMethod("POST");
