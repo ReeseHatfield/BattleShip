@@ -3,11 +3,10 @@ import java.util.ArrayList;
 import javax.swing.*;
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.swing.border.Border;
 
 public class Board {
-    ArrayList<HittableButton> playerPanelList = new ArrayList<>();
-    ArrayList<HittableButton> oPanelList = new ArrayList<>();
+    ArrayList<HittableButton> playerBoard = new ArrayList<>();
+    ArrayList<HittableButton> otherBoard = new ArrayList<>();
     JFrame frame = new JFrame();
     Backend backend;
     int health = 0;
@@ -48,7 +47,7 @@ public class Board {
                     root.add(leftSide,c);
                     continue;
                 }
-                HittableButton p = new HittableButton();
+                HittableButton p = new HittableButton(this);
                 p.setBackground(new Color(255,255,255,120));
                 p.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 p.setOpaque(true);
@@ -62,7 +61,7 @@ public class Board {
                 p.setEnabled(false);
 
                 root.add(p, c);
-                playerPanelList.add(p);
+                playerBoard.add(p);
 
                 JLabel topRow = new JLabel("" + j,SwingConstants.CENTER);
                 topRow.setBackground(new Color(255,255,255,120));
@@ -108,17 +107,17 @@ public class Board {
                     root.add(leftSide,c);
                     continue;
                 }
-                HittableButton oPanels = new HittableButton(j, i+1, this);
-                oPanels.setBackground(new Color(255,255,255,120));
-                oPanels.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                HittableButton oButton = new HittableButton(j, i+1, this);
+                oButton.setBackground(new Color(255,255,255,120));
+                oButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-                oPanels.setOpaque(true);
+                oButton.setOpaque(true);
                 c.ipadx = 40;
                 c.ipady = 40;
                 c.gridx = j;
                 c.gridy = i + 1;
 
-                oPanels.setAction();
+                oButton.setAction();
 
 
                 /*oPanels.addActionListener(e -> {
@@ -132,8 +131,8 @@ public class Board {
                         //isTurn = false;
                     }
                 });*/
-                root.add(oPanels, c);
-                oPanelList.add(oPanels);
+                root.add(oButton, c);
+                otherBoard.add(oButton);
 
                 JLabel topRow = new JLabel("" + (j-12),SwingConstants.CENTER);
                 topRow.setBackground(new Color(255,255,255,120));
@@ -169,15 +168,16 @@ public class Board {
     }
 
     public void changePanelColor(int side, int panel, Color bg) {
-        playerPanelList.get(panel).setBackground(bg);
+        playerBoard.get(panel).setBackground(bg);
     }
     public int getHealth() {
-        System.out.println(health);
+        System.out.println("Health: " + health);
         return health;
     }
     public void setHealth(int health) {
         this.health = health;
     }
+
 
     public void losingMenu() {
         PicturePanel loss = new PicturePanel("loss.jpg");

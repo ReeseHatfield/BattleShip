@@ -9,8 +9,9 @@ public class HittableButton extends JButton {
     private int x = 0;
     private int y = 0;
 
-    public HittableButton() {
+    public HittableButton(Board board) {
         super();
+        this.board = board;
     }
 
     public HittableButton(int x, int y, Board board) {
@@ -40,6 +41,7 @@ public class HittableButton extends JButton {
             isHit = true;
             this.setBackground(Color.RED);
             this.setEnabled(false);
+            board.setHealth(board.getHealth() - 1);
             return true;
         } else if (!this.isHit) {
             isHit = true;
@@ -52,10 +54,15 @@ public class HittableButton extends JButton {
 
     public void setAction() {
         this.addActionListener(e -> {
-            System.out.println("X" + x + "\nY" + y);
-            board.getClient().postData(x, y, board);
-            board.oPanelList.get(y*10+x).hit();
-            this.setEnabled(false);
+            if (board.getClient().isTurn) {
+                System.out.println("X" + x + "\nY" + y);
+                board.getClient().postData(x, y, 0, 0, 1, board);
+                board.otherBoard.get(y*10+x).hit();
+                this.setEnabled(false);
+                board.getClient().isTurn = false;
+                board.getClient().lastShotX = x;
+                board.getClient().lastShotY = y;
+            }
         });
     }
 }
