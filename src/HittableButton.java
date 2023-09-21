@@ -56,10 +56,10 @@ public class HittableButton extends JButton {
         this.addActionListener(e -> {
             if (board.getClient().isTurn) {
                 System.out.println("X" + x + "\nY" + y);
-                board.getClient().postData(x, y, 0, 0, 1, board);
+                board.getClient().postData(x, y, 0, 0, 0, board);
                 board.otherBoard.get(y*10+x).hit();
                 this.setEnabled(false);
-                board.getClient().isTurn = false;
+                //board.getClient().isTurn = false;
                 board.getClient().lastShotX = x;
                 board.getClient().lastShotY = y;
             }

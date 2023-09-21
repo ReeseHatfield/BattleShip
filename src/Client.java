@@ -16,7 +16,7 @@
 
     private static String lastData = "";
     private String serverIP;
-    public boolean isTurn = false;
+    public volatile boolean isTurn = false;
     public int lastShotX = 0;
     public int lastShotY = 0;
 
@@ -169,9 +169,7 @@
 
     public void playGame() throws Exception {
 
-    //        if (!isTurn) {
-    //            return;
-    //        }
+
         // GET request to fetch data
         URL getUrl = new URL(
                 "http://" + serverIP + ":" + Settings.PORT_NUMBER + Settings.SERVER_ENDPOINT + "?" + uid);
@@ -195,7 +193,7 @@
         if (response.toString().equals("No data from other client") && !lastData.equals(response.toString())) {
             lastData = response.toString();
             isTurn = true;
-            postData(10,10,0,0,0,board);
+            postData(10,10,0,0,0,board); //only case to post 10s
             return;
         }
         int xCoord = Integer.parseInt(response.toString().split(",")[0]);
@@ -204,11 +202,23 @@
         int didLose = Integer.parseInt(response.toString().split(",")[3]);
         int endTurn = Integer.parseInt(response.toString().split(",")[4]);
 
-        
-
-        if (response.toString().equals(lastData)) {
-            return;
+        if(endTurn == 1) {
+            isTurn = true;
         }
+
+        //Client did not hit a ship, other player posted 12
+        //Receiving 12 means post endTurn = 1
+        if (xCoord == 12) {
+            isTurn = false;
+            postData(10,10,0,0,1,board);
+        }
+
+        /*if (xCoord == 10) {
+            isTurn = false;
+        }*/
+//        if (response.toString().equals(lastData)) {
+//            return;
+//        }
         lastData = response.toString();
 
 
@@ -220,15 +230,18 @@
         if(xCoord < 10){
             if (board.playerBoard.get(yCoord * 10 + xCoord).hit()) {//If true a ship was hit
                 if (board.getHealth() < 1) {
-                    postData(10,10,1,1,1,board);
+                    postData(11,11,1,1,1,board); //Hit cases post 11s
                     board.losingMenu();
+                    isTurn = false;
                     return;
                 }
                 else {
-                    postData(10,10,1,0,1,board);
+                    postData(11,11,1,0,1,board); //Hit cases post 11s
+                    isTurn = false;
                     return;
                 }
             }
+            else postData(12,12,0,0,0,board); //No Hit posts 12
         }
 
         //Check didLose -> close window and open winning menu
@@ -244,9 +257,6 @@
 
         //Check endTurn last so board gets properly updated before buttons are enabled
         //System.out.println("thing:" + Arrays.toString(response.toString().split(",")));
-        if(endTurn == 1) {
-            isTurn = true;
-        }
 
     }
     }
