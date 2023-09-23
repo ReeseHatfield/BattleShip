@@ -28,10 +28,9 @@ public class Client {
     private final static String uid = UUID.randomUUID().toString();
 
     public Client(String ip) {
-        Scanner scanner = new Scanner(System.in);
         this.serverIP = ip;
 
-        Backend backend = new Backend(scanner);
+        Backend backend = new Backend();
         // create GUI here
 
         createButtons(backend);

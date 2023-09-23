@@ -6,27 +6,24 @@ public class Backend {
     private ArrayList<Ship> ships;
     private Scanner scnr;
 
-    public Backend(Scanner scnr){
-        this.scnr = scnr;
+    public Backend() {
+        this.scnr = new Scanner(System.in);
         createShips();
-
 
     }
 
-    private boolean isOutOfBounds(int toCheck){
+    private boolean isOutOfBounds(int toCheck) {
         return (toCheck < 0 || toCheck > 9);
     }
 
-    private void createShips(){
+    private void createShips() {
 
         this.ships = new ArrayList<Ship>();
-
 
         int startX;
         int startY;
         int endX;
         int endY;
-
 
         for (int i = 0; i < 2; i++) {
             System.out.println("MAKING SHIP " + i);
@@ -44,7 +41,7 @@ public class Backend {
 
             ships.add(new Ship(startX, startY, endX, endY));
 
-            if(isOutOfBounds(startX) || isOutOfBounds(startY) || isOutOfBounds(endX) || isOutOfBounds(endY)){
+            if (isOutOfBounds(startX) || isOutOfBounds(startY) || isOutOfBounds(endX) || isOutOfBounds(endY)) {
                 System.out.println("Error");
                 i--;
                 continue;
@@ -52,20 +49,18 @@ public class Backend {
         }
 
         System.out.println("ALL SHIP POINTS:");
-        for(Ship s : this.ships){
-            for (Point p : s.points){
+        for (Ship s : this.ships) {
+            for (Point p : s.points) {
                 System.out.println("X: " + p.x + " Y: " + p.y);
             }
         }
 
-
-
     }
 
-    public boolean tryHit(int x, int y){
-        for(Ship s : this.ships){
-            for(Point p : s.points){
-                if(p.x == x && p.y == y){
+    public boolean tryHit(int x, int y) {
+        for (Ship s : this.ships) {
+            for (Point p : s.points) {
+                if (p.x == x && p.y == y) {
                     s.hit(p);
                     return true;
                 }
@@ -75,15 +70,16 @@ public class Backend {
         return false;
     }
 
-    public ArrayList<Point> getPointsHit(){
+    public ArrayList<Point> getPointsHit() {
         ArrayList<Point> allPointsHit = new ArrayList<>();
-        for(Ship s : this.ships){
+        for (Ship s : this.ships) {
             allPointsHit.addAll(s.hitPoints);
         }
 
         return allPointsHit;
 
     }
+
     public ArrayList<Ship> getShips() {
         return ships;
     }
