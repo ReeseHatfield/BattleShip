@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+java {
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+}
+
+tasks.register('runServer', JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass.set('me.braintrust.battleship.Server')
+}
+
+tasks.register('runClient', JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass.set('me.braintrust.battleship.Client')
+    standardInput = System.in
+}
