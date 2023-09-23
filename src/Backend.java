@@ -9,7 +9,6 @@ public class Backend {
     public Backend() {
         this.scnr = new Scanner(System.in);
         createShips();
-
     }
 
     private boolean isOutOfBounds(int toCheck) {

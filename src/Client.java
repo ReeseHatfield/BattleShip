@@ -68,8 +68,6 @@ public class Client {
             postCon.setRequestMethod("POST");
 
             postCon.setDoOutput(true);
-            // System.out.println("PRINTING HERE!!!!\n" + postCon.getOutputStream() +
-            // "\n\n");
             DataOutputStream wr = new DataOutputStream(postCon.getOutputStream());
             wr.writeBytes(postData);
             wr.flush();
@@ -164,8 +162,6 @@ public class Client {
         // Check didHit -> Update RIGHT board with red square instead of black square
 
         // Check endTurn last so board gets properly updated before buttons are enabled
-        // System.out.println("thing:" +
-        // Arrays.toString(response.toString().split(",")));
 
     }
 }
