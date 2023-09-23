@@ -152,9 +152,9 @@ public class Board {
 
         }
 
-        Timer t = new Timer();
+        Timer winCheckTimer = new Timer();
 
-        t.scheduleAtFixedRate(new TimerTask() {
+        winCheckTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 if (!lost) {
