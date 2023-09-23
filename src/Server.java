@@ -10,29 +10,18 @@ import java.io.*;
 import java.net.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-/*
-    Server.java
-    A simple HTTP server for exchanging battleship coordinates across
-    multiple different clients
-    *technically* a utility class since the reference to its state memory position
-    never changes. It is NOT just a utility class, don't worry if IDE
-    says to not instantiate it
- */
+public final class Server {
 
-public class Server {
-
-    // Thead-safe hashmap of <UUID, dataPassed>
-    // Could probably get away without thread safety, but it's easier if it is
+    // Thread-safe hashmap of <UUID, dataPassed>
     private static final ConcurrentHashMap<String, String> userData = new ConcurrentHashMap<>();
 
-    /*
-        Server Constructor:
-        Creates an instance of this HTTP server
-        Contains a private static handler class
-     */
-    public Server() throws IOException {
-        HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0",
-                Settings.PORT_NUMBER), 0);
+    // Private constructor to prevent instantiation
+    private Server() {
+        throw new UnsupportedOperationException("Server class should not be instantiated");
+    }
+
+    public static void startServer() throws IOException {
+        HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", Settings.PORT_NUMBER), 0);
         server.createContext(Settings.SERVER_ENDPOINT, new BattleShipHandler());
         server.setExecutor(null);
         server.start();
@@ -44,8 +33,7 @@ public class Server {
     }
 
     public static void main(String[] args) throws IOException {
-        // IDE may complain about this, don't worry about it
-        new Server();
+        startServer();
     }
 
     static class BattleShipHandler implements HttpHandler {
@@ -76,7 +64,6 @@ public class Server {
         }
 
         private static void handlePOST(HttpExchange httpExchange) throws IOException {
-
             InputStream is = httpExchange.getRequestBody();
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             String line;
@@ -90,9 +77,8 @@ public class Server {
             if (parts.length == 2) {
                 String uid = parts[0];
                 String data = parts[1];
-                userData.put(uid, data);  // Store the received data
-            }
-            else{
+                userData.put(uid, data); // Store the received data
+            } else {
                 throw new InvalidMoveException("Error: message cannot contain `;`");
             }
 
@@ -103,5 +89,4 @@ public class Server {
             os.close();
         }
     }
-
 }
