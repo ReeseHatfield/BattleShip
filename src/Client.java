@@ -31,12 +31,10 @@ public class Client {
         this.serverIP = ip;
 
         Backend backend = new Backend();
-        // create GUI here
 
         createButtons(backend);
 
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
+        new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 try {
