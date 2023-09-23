@@ -34,19 +34,8 @@ public class Client {
         Backend backend = new Backend(scanner);
         // create GUI here
 
-        for (Ship s : backend.getShips()) {
-            for (Point p : s.points) {
-                HittableButton button = board.playerBoard.get(p.y * 10 + p.x);
-                board.setHealth(board.getHealth() + 1);
-                button.setBackground(Color.GREEN);
-                button.setShipStatus(true);
+        createButtons(backend);
 
-            }
-        }
-
-        // System.out.println("Enter the server IP: ");
-        // scanner.nextLine();
-        // serverIP = scanner.nextLine();
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -58,6 +47,18 @@ public class Client {
                 }
             }
         }, 0, 500); // Check 1/2 second
+    }
+
+    private void createButtons(Backend backend) {
+        for (Ship s : backend.getShips()) {
+            for (Point p : s.points) {
+                HittableButton button = board.playerBoard.get(p.y * 10 + p.x);
+                board.setHealth(board.getHealth() + 1);
+                button.setBackground(Color.GREEN);
+                button.setShipStatus(true);
+
+            }
+        }
     }
 
     public void postData(int xCoord, int yCoord, int didHit, int didLose, int endTurn, Board board) {
