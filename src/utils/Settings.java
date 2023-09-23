@@ -20,4 +20,8 @@ public class Settings {
         GAME_WIDTH_PX = 1400;
         GAME_HEIGHT_PX = 760;
     }
+
+    private Settings() {
+        throw new UnsupportedOperationException("Settings should not be instantiated!");
+    }
 }
