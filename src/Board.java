@@ -10,13 +10,12 @@ import java.util.TimerTask;
 public class Board {
     public ArrayList<HittableButton> playerBoard = new ArrayList<>();
     public ArrayList<HittableButton> otherBoard = new ArrayList<>();
-    public JFrame frame = new JFrame();
-    public Backend backend;
-    public int health = 0;
-    public boolean lost = false;
-    public boolean isTurn = true;
-    public int i = 0;
-    public int j = 0;
+
+    private JFrame frame = new JFrame();
+    private int health = 0;
+    private boolean lost = false;
+    private int i = 0;
+    private int j = 0;
 
     private Client client;
 
@@ -177,7 +176,6 @@ public class Board {
         frame.setSize(Settings.GAME_WIDTH_PX, Settings.GAME_HEIGHT_PX);
         frame.setVisible(true);
         frame.setResizable(false);
-
     }
 
     public Client getClient() {
