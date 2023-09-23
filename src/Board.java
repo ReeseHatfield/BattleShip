@@ -22,7 +22,7 @@ public class Board {
 
     public Board(Client client) {
         this.client = client;
-        PicturePanel root = new PicturePanel("battleship.jpg");
+        PicturePanel root = new PicturePanel("./../resources/battleship.jpg");
         GridBagLayout lay = new GridBagLayout();
         root.setLayout(lay);
         GridBagConstraints c = new GridBagConstraints();
@@ -184,7 +184,7 @@ public class Board {
     }
 
     public void losingMenu() {
-        PicturePanel loss = new PicturePanel("loss.jpg");
+        PicturePanel loss = new PicturePanel("./../resources/loss.jpg");
         frame.dispose();
         JFrame frame = new JFrame();
         frame.getContentPane().add(loss);
@@ -195,11 +195,7 @@ public class Board {
     }
 
     public void winningMenu() {
-        PicturePanel loss = new PicturePanel("pepewin.jpg");
-        /*
-         * JLabel losingText = new JLabel("YOU LOST");
-         * loss.add(losingText);
-         */
+        PicturePanel loss = new PicturePanel("./../resources/pepewin.jpg");
         frame.dispose();
         JFrame frame = new JFrame();
         frame.getContentPane().add(loss);
