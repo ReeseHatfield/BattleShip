@@ -1,13 +1,16 @@
+package me.braintrust.battleship;
+
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.awt.*;
 
 public class Backend {
-    private ArrayList<Ship> ships;
-    private Scanner scnr;
+
+    private static final Scanner input = new Scanner(System.in);
+    private final List<Ship> ships = new ArrayList<>();
 
     public Backend() {
-        this.scnr = new Scanner(System.in);
         createShips();
     }
 
@@ -16,9 +19,6 @@ public class Backend {
     }
 
     private void createShips() {
-
-        this.ships = new ArrayList<Ship>();
-
         int startX;
         int startY;
         int endX;
@@ -27,29 +27,28 @@ public class Backend {
         for (int i = 0; i < 2; i++) {
             System.out.println("MAKING SHIP " + i);
             System.out.println("Start X: ");
-            startX = scnr.nextInt();
+            startX = input.nextInt();
 
             System.out.println("Start Y: ");
-            startY = scnr.nextInt();
+            startY = input.nextInt();
 
             System.out.println("End X: ");
-            endX = scnr.nextInt();
+            endX = input.nextInt();
 
             System.out.println("End Y: ");
-            endY = scnr.nextInt();
+            endY = input.nextInt();
 
             ships.add(new Ship(startX, startY, endX, endY));
 
             if (isOutOfBounds(startX) || isOutOfBounds(startY) || isOutOfBounds(endX) || isOutOfBounds(endY)) {
                 System.out.println("Error");
                 i--;
-                continue;
             }
         }
 
         System.out.println("ALL SHIP POINTS:");
         for (Ship s : this.ships) {
-            for (Point p : s.points) {
+            for (Point p : s.getPoints()) {
                 System.out.println("X: " + p.x + " Y: " + p.y);
             }
         }
@@ -58,29 +57,25 @@ public class Backend {
 
     public boolean tryHit(int x, int y) {
         for (Ship s : this.ships) {
-            for (Point p : s.points) {
+            for (Point p : s.getPoints()) {
                 if (p.x == x && p.y == y) {
                     s.hit(p);
                     return true;
                 }
             }
         }
-
         return false;
     }
 
-    public ArrayList<Point> getPointsHit() {
+    public List<Point> getPointsHit() {
         ArrayList<Point> allPointsHit = new ArrayList<>();
         for (Ship s : this.ships) {
-            allPointsHit.addAll(s.hitPoints);
+            allPointsHit.addAll(s.getHitPoints());
         }
-
         return allPointsHit;
-
     }
 
-    public ArrayList<Ship> getShips() {
+    public List<Ship> getShips() {
         return ships;
     }
-
 }

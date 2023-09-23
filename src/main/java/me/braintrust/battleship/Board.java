@@ -1,27 +1,30 @@
+package me.braintrust.battleship;
+
+import me.braintrust.battleship.utils.Settings;
+
 import java.awt.*;
+import java.util.List;
 import java.util.ArrayList;
 import javax.swing.*;
-
-import utils.Settings;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Board {
-    public ArrayList<HittableButton> playerBoard = new ArrayList<>();
-    public ArrayList<HittableButton> otherBoard = new ArrayList<>();
+
+    private final List<HittableButton> playerBoard = new ArrayList<>();
+    private final List<HittableButton> otherBoard = new ArrayList<>();
 
     private JFrame frame = new JFrame();
     private int health = 0;
     private boolean lost = false;
     private int i = 0;
     private int j = 0;
-
     private Client client;
 
     public Board(Client client) {
         this.client = client;
-        PicturePanel root = new PicturePanel("./../resources/battleship.jpg");
+        PicturePanel root = new PicturePanel("/battleship.jpg");
         GridBagLayout lay = new GridBagLayout();
         root.setLayout(lay);
         GridBagConstraints c = new GridBagConstraints();
@@ -59,7 +62,7 @@ public class Board {
                 c.gridx = j;
                 c.gridy = i + 1;
                 p.addActionListener(e -> {
-                    System.out.println("button " + p.isShip);
+                    System.out.println("button " + p.isShip());
                 });
                 p.setEnabled(false);
 
@@ -110,7 +113,7 @@ public class Board {
                     root.add(leftSide, c);
                     continue;
                 }
-                HittableButton oButton = new HittableButton(j, i + 1, this);
+                HittableButton oButton = new HittableButton(this, j, i + 1);
                 oButton.setBackground(new Color(255, 255, 255, 120));
                 oButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -120,7 +123,6 @@ public class Board {
                 c.gridx = j;
                 c.gridy = i + 1;
 
-                oButton.setAction();
                 root.add(oButton, c);
                 otherBoard.add(oButton);
 
@@ -180,5 +182,13 @@ public class Board {
 
     public Client getClient() {
         return client;
+    }
+
+    public List<HittableButton> getPlayerBoard() {
+        return playerBoard;
+    }
+
+    public List<HittableButton> getOtherBoard() {
+        return otherBoard;
     }
 }

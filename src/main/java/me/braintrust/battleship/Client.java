@@ -1,5 +1,7 @@
-import utils.ErrorHandler;
-import utils.Settings;
+package me.braintrust.battleship;
+
+import me.braintrust.battleship.utils.ErrorHandler;
+import me.braintrust.battleship.utils.Settings;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -10,15 +12,16 @@ import java.net.URL;
 import java.util.*;
 
 public class Client {
+
     public static void main(String[] args) {
         new ServerSelect();
     }
 
     private static String lastData = "";
-    private String serverIP;
-    public volatile boolean isTurn = false;
-    public int lastShotX = 0;
-    public int lastShotY = 0;
+    private final String serverIP;
+    private volatile boolean isTurn = false;
+    private int lastShotX = 0;
+    private int lastShotY = 0;
 
     private Board board = new Board(this);
 
@@ -48,11 +51,11 @@ public class Client {
 
     private void createButtons(Backend backend) {
         for (Ship s : backend.getShips()) {
-            for (Point p : s.points) {
-                HittableButton button = board.playerBoard.get(p.y * 10 + p.x);
+            for (Point p : s.getPoints()) {
+                HittableButton button = board.getPlayerBoard().get(p.y * 10 + p.x);
                 board.setHealth(board.getHealth() + 1);
                 button.setBackground(Color.GREEN);
-                button.setShipStatus(true);
+                button.setShip(true);
 
             }
         }
@@ -116,7 +119,7 @@ public class Client {
             isTurn = true;
         }
 
-        // Client did not hit a ship, other player posted 12
+        // main.java.battleship.Client did not hit a ship, other player posted 12
         // Receiving 12 means post endTurn = 1
         if (xCoord == 12) {
             isTurn = false;
@@ -138,10 +141,10 @@ public class Client {
         // If junk data, return
 
         if (xCoord < 10) {
-            if (board.playerBoard.get(yCoord * 10 + xCoord).hit()) {// If true a ship was hit
+            if (board.getPlayerBoard().get(yCoord * 10 + xCoord).hit()) {// If true a ship was hit
                 if (board.getHealth() < 1) {
                     postData(11, 11, 1, 1, 1, board); // Hit cases post 11s
-                    board.displayEndMenu(new PicturePanel("./../resources/loss.jpg"));
+                    board.displayEndMenu(new PicturePanel("/loss.jpg"));
                     isTurn = false;
                     return;
                 } else {
@@ -155,11 +158,11 @@ public class Client {
 
         // Check didLose -> close window and open winning menu
         if (didLose == 1) {
-            board.displayEndMenu(new PicturePanel("./../resources/pepewin.jpg"));
+            board.displayEndMenu(new PicturePanel("/pepewin.jpg"));
         }
 
         if (didHit == 1) {
-            board.otherBoard.get(lastShotY * 10 + lastShotX).setBackground(Color.RED);
+            board.getOtherBoard().get(lastShotY * 10 + lastShotX).setBackground(Color.RED);
         }
         // Check didHit -> Update RIGHT board with red square instead of black square
 
@@ -167,5 +170,29 @@ public class Client {
         // System.out.println("thing:" +
         // Arrays.toString(response.toString().split(",")));
 
+    }
+
+    public String getServerIP() {
+        return serverIP;
+    }
+
+    public int getLastShotX() {
+        return lastShotX;
+    }
+
+    public void setLastShotX(int lastShotX) {
+        this.lastShotX = lastShotX;
+    }
+
+    public int getLastShotY() {
+        return lastShotY;
+    }
+
+    public void setLastShotY(int lastShotY) {
+        this.lastShotY = lastShotY;
+    }
+
+    public boolean isTurn() {
+        return isTurn;
     }
 }
