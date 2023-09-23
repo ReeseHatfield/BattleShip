@@ -8,15 +8,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Board {
-    ArrayList<HittableButton> playerBoard = new ArrayList<>();
-    ArrayList<HittableButton> otherBoard = new ArrayList<>();
-    JFrame frame = new JFrame();
-    Backend backend;
-    int health = 0;
-    boolean lost = false;
-    boolean isTurn = true;
-    int i = 0;
-    int j = 0;
+    public ArrayList<HittableButton> playerBoard = new ArrayList<>();
+    public ArrayList<HittableButton> otherBoard = new ArrayList<>();
+    public JFrame frame = new JFrame();
+    public Backend backend;
+    public int health = 0;
+    public boolean lost = false;
+    public boolean isTurn = true;
+    public int i = 0;
+    public int j = 0;
 
     private Client client;
 
@@ -122,20 +122,6 @@ public class Board {
                 c.gridy = i + 1;
 
                 oButton.setAction();
-
-                /*
-                 * oPanels.addActionListener(e -> {
-                 * if (isTurn) {
-                 * int x = j-19;
-                 * int y = i-10;
-                 * System.out.println("X" + x + "\nY" + y);
-                 * client.postData(x, y, this);
-                 * oPanels.hit();
-                 * oPanels.setEnabled(false);
-                 * //isTurn = false;
-                 * }
-                 * });
-                 */
                 root.add(oButton, c);
                 otherBoard.add(oButton);
 
@@ -183,26 +169,15 @@ public class Board {
         this.health = health;
     }
 
-    public void losingMenu() {
-        PicturePanel loss = new PicturePanel("./../resources/loss.jpg");
+    public void displayEndMenu(PicturePanel pp) {
         frame.dispose();
         JFrame frame = new JFrame();
-        frame.getContentPane().add(loss);
+        frame.getContentPane().add(pp);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(Settings.GAME_WIDTH_PX, Settings.GAME_HEIGHT_PX);
         frame.setVisible(true);
         frame.setResizable(false);
-    }
 
-    public void winningMenu() {
-        PicturePanel loss = new PicturePanel("./../resources/pepewin.jpg");
-        frame.dispose();
-        JFrame frame = new JFrame();
-        frame.getContentPane().add(loss);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(Settings.GAME_WIDTH_PX, Settings.GAME_HEIGHT_PX);
-        frame.setVisible(true);
-        frame.setResizable(false);
     }
 
     public Client getClient() {

@@ -68,6 +68,8 @@ public class Client {
             postCon.setRequestMethod("POST");
 
             postCon.setDoOutput(true);
+            // System.out.println("PRINTING HERE!!!!\n" + postCon.getOutputStream() +
+            // "\n\n");
             DataOutputStream wr = new DataOutputStream(postCon.getOutputStream());
             wr.writeBytes(postData);
             wr.flush();
@@ -139,7 +141,7 @@ public class Client {
             if (board.playerBoard.get(yCoord * 10 + xCoord).hit()) {// If true a ship was hit
                 if (board.getHealth() < 1) {
                     postData(11, 11, 1, 1, 1, board); // Hit cases post 11s
-                    board.losingMenu();
+                    board.displayEndMenu(new PicturePanel("./../resources/loss.jpg"));
                     isTurn = false;
                     return;
                 } else {
@@ -153,7 +155,7 @@ public class Client {
 
         // Check didLose -> close window and open winning menu
         if (didLose == 1) {
-            board.winningMenu();
+            board.displayEndMenu(new PicturePanel("./../resources/pepewin.jpg"));
         }
 
         if (didHit == 1) {
@@ -162,6 +164,8 @@ public class Client {
         // Check didHit -> Update RIGHT board with red square instead of black square
 
         // Check endTurn last so board gets properly updated before buttons are enabled
+        // System.out.println("thing:" +
+        // Arrays.toString(response.toString().split(",")));
 
     }
 }
