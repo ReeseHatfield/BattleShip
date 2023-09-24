@@ -1,10 +1,12 @@
+package me.braintrust.battleship;
+
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import exceptions.InvalidMoveException;
-import utils.ErrorHandler;
-import utils.Settings;
-import utils.Utils;
+import me.braintrust.battleship.exceptions.InvalidMoveException;
+import me.braintrust.battleship.utils.ErrorHandler;
+import me.braintrust.battleship.utils.Settings;
+import me.braintrust.battleship.utils.Utils;
 
 import java.io.*;
 import java.net.*;
@@ -15,16 +17,16 @@ public final class Server {
     // Thread-safe hashmap of <UUID, dataPassed>
     private static final ConcurrentHashMap<String, String> userData = new ConcurrentHashMap<>();
 
-    // Private constructor to prevent instantiation
-    private Server() {
-        throw new UnsupportedOperationException("Server class should not be instantiated");
+    public static void main(String[] args) throws IOException {
+        startServer();
     }
 
-    public static void startServer() throws IOException {
+    private static void startServer() throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", Settings.PORT_NUMBER), 0);
         server.createContext(Settings.SERVER_ENDPOINT, new BattleShipHandler());
         server.setExecutor(null);
         server.start();
+
         try {
             System.out.println("Server started. Your local network IP address: " + Utils.getLocalNetworkIP());
         } catch (SocketException e) {
@@ -32,11 +34,8 @@ public final class Server {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        startServer();
-    }
+    private static class BattleShipHandler implements HttpHandler {
 
-    static class BattleShipHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange httpExchange) throws IOException {
             String method = httpExchange.getRequestMethod();
@@ -88,5 +87,9 @@ public final class Server {
             os.write(res.getBytes());
             os.close();
         }
+    }
+
+    private Server() {
+        throw new UnsupportedOperationException("This class cannot be instantiated.");
     }
 }

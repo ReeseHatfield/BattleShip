@@ -1,4 +1,4 @@
-package utils;
+package me.braintrust.battleship.utils;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -9,7 +9,6 @@ import java.util.Enumeration;
 public class Utils {
 
     public static String getLocalNetworkIP() throws SocketException {
-
         Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
         while (networkInterfaces.hasMoreElements()) {
             NetworkInterface networkInterface = networkInterfaces.nextElement();

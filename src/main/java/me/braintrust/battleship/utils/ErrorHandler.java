@@ -1,4 +1,4 @@
-package utils;
+package me.braintrust.battleship.utils;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -6,6 +6,7 @@ import java.net.ProtocolException;
 import java.net.SocketException;
 
 public class ErrorHandler {
+
     public static void handleError(Exception e){
         if (e instanceof MalformedURLException) {
             System.out.println("The URL is malformed: " + e.getMessage());
