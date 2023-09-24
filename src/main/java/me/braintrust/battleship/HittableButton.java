@@ -11,18 +11,13 @@ public class HittableButton extends JButton {
     private boolean isShip = false; // 0 is empty, 1 is ship
     private boolean isHit = false;
 
-    public HittableButton(Board board) {
-        this(board, 0, 0);
-    }
-
     public HittableButton(Board board, int x, int y) {
         this.board = board;
-        this.x = x-13;
-        this.y = y-1;
-        setAction();
+        this.x = x - 1;
+        this.y = y - 1;
     }
 
-    private void setAction() {
+    public void setAction() {
         addActionListener(e -> {
             if (!board.getClient().isTurn()) {
                 return;
@@ -30,7 +25,7 @@ public class HittableButton extends JButton {
 
             System.out.println("X" + x + "\nY" + y);
             board.getClient().postData(x, y, 0, 0, 0, board);
-            board.getOtherBoard().get(y * 10 + x).hit();
+            board.getOtherButtons().get((x * 10) + y).hit();
             setEnabled(false);
             board.getClient().setLastShotX(x);
             board.getClient().setLastShotY(y);

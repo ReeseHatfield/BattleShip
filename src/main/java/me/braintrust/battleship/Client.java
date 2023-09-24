@@ -52,19 +52,17 @@ public class Client {
     private void createButtons(Backend backend) {
         for (Ship s : backend.getShips()) {
             for (Point p : s.getPoints()) {
-                HittableButton button = board.getPlayerBoard().get(p.y * 10 + p.x);
+                HittableButton button = board.getPlayerButtons().get((p.x * 10) + p.y);
                 board.setHealth(board.getHealth() + 1);
                 button.setBackground(Color.GREEN);
                 button.setShip(true);
-
             }
         }
     }
 
     public void postData(int xCoord, int yCoord, int didHit, int didLose, int endTurn, Board board) {
-
         try {
-            String postData = this.uid + ";" + xCoord + "," + yCoord + "," + didHit + "," + didLose + "," + endTurn;
+            String postData = uid + ";" + xCoord + "," + yCoord + "," + didHit + "," + didLose + "," + endTurn;
 
             URL postUrl = new URL("http://" + serverIP + ":" + Settings.PORT_NUMBER + Settings.SERVER_ENDPOINT);
             HttpURLConnection postCon = (HttpURLConnection) postUrl.openConnection();
@@ -119,7 +117,7 @@ public class Client {
             isTurn = true;
         }
 
-        // main.java.battleship.Client did not hit a ship, other player posted 12
+        // Client did not hit a ship, other player posted 12
         // Receiving 12 means post endTurn = 1
         if (xCoord == 12) {
             isTurn = false;
@@ -141,7 +139,7 @@ public class Client {
         // If junk data, return
 
         if (xCoord < 10) {
-            if (board.getPlayerBoard().get(yCoord * 10 + xCoord).hit()) {// If true a ship was hit
+            if (board.getPlayerButtons().get((xCoord * 10) + yCoord).hit()) {// If true a ship was hit
                 if (board.getHealth() < 1) {
                     postData(11, 11, 1, 1, 1, board); // Hit cases post 11s
                     board.displayEndMenu(new PicturePanel("/loss.jpg"));
@@ -162,7 +160,7 @@ public class Client {
         }
 
         if (didHit == 1) {
-            board.getOtherBoard().get(lastShotY * 10 + lastShotX).setBackground(Color.RED);
+            board.getOtherButtons().get((lastShotX * 10) + lastShotY).setBackground(Color.RED);
         }
         // Check didHit -> Update RIGHT board with red square instead of black square
 
