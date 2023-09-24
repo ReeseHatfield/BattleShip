@@ -12,162 +12,90 @@ import java.util.TimerTask;
 
 public class Board {
 
-    private final List<HittableButton> playerBoard = new ArrayList<>();
-    private final List<HittableButton> otherBoard = new ArrayList<>();
+    private final List<HittableButton> playerButtons = new ArrayList<>();
+    private final List<HittableButton> otherButtons = new ArrayList<>();
 
-    private JFrame frame = new JFrame();
+    private final JFrame frame = new JFrame();
+    private final Client client;
     private int health = 0;
-    private boolean lost = false;
-    private int i = 0;
-    private int j = 0;
-    private Client client;
 
     public Board(Client client) {
         this.client = client;
+        this.frame.setSize(1400, 760);
+        this.frame.setResizable(false);
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         PicturePanel root = new PicturePanel("/battleship.jpg");
-        GridBagLayout lay = new GridBagLayout();
-        root.setLayout(lay);
-        GridBagConstraints c = new GridBagConstraints();
-        for (i = 0; i < 10; i++) {
-            for (j = 0; j < 11; j++) {
-                if (j == 0) {
-                    JLabel leftSide = new JLabel("" + (char) ('A' + i), SwingConstants.CENTER);
-                    leftSide.setBackground(new Color(255, 255, 255, 120));
-                    leftSide.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                    if (j == 10) {
-                        c.ipadx = 19;
-                        c.ipady = 20;
-                        c.gridx = j;
-                        c.gridy = i + 1;
-                        leftSide.setBackground(Color.PINK);
-                        leftSide.setOpaque(true);
-                        root.add(leftSide, c);
-                        continue;
-                    }
-                    c.ipadx = 20;
-                    c.ipady = 20;
-                    c.gridx = j;
-                    c.gridy = i + 1;
-                    leftSide.setBackground(Color.PINK);
-                    leftSide.setOpaque(true);
-                    root.add(leftSide, c);
+        root.setLayout(new BorderLayout());
+
+        JPanel overlay = new JPanel();
+        overlay.setOpaque(false);
+        overlay.setLayout(new BoxLayout(overlay, BoxLayout.X_AXIS));
+        overlay.add(configureBoard(playerButtons));
+        overlay.add(configureBoard(otherButtons));
+        root.add(overlay, BorderLayout.CENTER);
+
+        frame.getContentPane().add(root);
+        frame.setVisible(true);
+    }
+
+    private JPanel configureBoard(List<HittableButton> buttons) {
+        JPanel board = new JPanel(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+
+        for (int i=0; i<=10; i++) {
+            for (int j=0; j<=10; j++) {
+                // Ignore the top left corner!
+                if (i == 0 && j == 0) {
                     continue;
                 }
-                HittableButton p = new HittableButton(this);
-                p.setBackground(new Color(255, 255, 255, 120));
-                p.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                p.setOpaque(true);
-                c.ipadx = 40;
-                c.ipady = 40;
-                c.gridx = j;
-                c.gridy = i + 1;
-                p.addActionListener(e -> {
-                    System.out.println("button " + p.isShip());
-                });
-                p.setEnabled(false);
 
-                root.add(p, c);
-                playerBoard.add(p);
-
-                JLabel topRow = new JLabel("" + j, SwingConstants.CENTER);
-                topRow.setBackground(new Color(255, 255, 255, 120));
-                topRow.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                c.ipadx = 30;
-                c.ipady = 20;
-                c.gridx = j;
-                c.gridy = 0;
-                topRow.setOpaque(true);
-                root.add(topRow, c);
-
-            }
-            HittablePanel p = new HittablePanel();
-            p.setOpaque(false);
-            c.ipadx = 100;
-            c.ipady = 20;
-            c.gridx = 11;
-            // GRIDY!!!!
-            c.gridy = i + 1;
-            root.add(p, c);
-
-            for (j = 12; j < 23; j++) {
-                if (j == 12) {
-                    JLabel leftSide = new JLabel("" + (char) ('A' + i), SwingConstants.CENTER);
-                    leftSide.setBackground(new Color(255, 255, 255, 120));
-                    leftSide.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                    if (j == 21) {
-                        c.ipadx = 19;
-                        c.ipady = 20;
-                        c.gridx = j;
-                        c.gridy = i + 1;
-                        leftSide.setBackground(Color.PINK);
-                        leftSide.setOpaque(true);
-                        root.add(leftSide, c);
-                        continue;
-                    }
-                    c.ipadx = 20;
-                    c.ipady = 20;
-                    c.gridx = j;
-                    c.gridy = i + 1;
-                    leftSide.setBackground(Color.PINK);
-                    leftSide.setOpaque(true);
-                    root.add(leftSide, c);
-                    continue;
+                JComponent cell;
+                if (i == 0) {
+                    cell = configureCell(new JLabel(String.valueOf((char) ('A' + j - 1))), Color.PINK);
+                } else if (j == 0) {
+                    cell = configureCell(new JLabel(String.valueOf(i)));
+                } else {
+                    cell = configureCell(new HittableButton(this, i, j));
                 }
-                HittableButton oButton = new HittableButton(this, j, i + 1);
-                oButton.setBackground(new Color(255, 255, 255, 120));
-                oButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-                oButton.setOpaque(true);
-                c.ipadx = 40;
-                c.ipady = 40;
-                c.gridx = j;
-                c.gridy = i + 1;
+                // Add the buttons to the board!
+                if (cell instanceof HittableButton button) {
+                    button.setAction();
+                    buttons.add(button);
+                }
 
-                root.add(oButton, c);
-                otherBoard.add(oButton);
-
-                JLabel topRow = new JLabel("" + (j - 12), SwingConstants.CENTER);
-                topRow.setBackground(new Color(255, 255, 255, 120));
-                topRow.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                c.ipadx = 30;
-                c.ipady = 20;
-                c.gridx = j;
-                c.gridy = 0;
-                topRow.setOpaque(true);
-                root.add(topRow, c);
+                constraints.gridx = i;
+                constraints.gridy = j;
+                board.add(cell, constraints);
             }
-
         }
 
-        Timer winCheckTimer = new Timer();
-
-        winCheckTimer.scheduleAtFixedRate(new TimerTask() {
+        new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (!lost) {
-                    root.repaint();
-                }
+                board.repaint();
             }
         }, 0, 1000);
 
-        frame.getContentPane().add(root);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1400, 760);
-        frame.setVisible(true);
-        frame.setResizable(false);
+        board.setOpaque(false);
+        return board;
     }
 
-    public void changePanelColor(int side, int panel, Color bg) {
-        playerBoard.get(panel).setBackground(bg);
+    private JComponent configureCell(JComponent cell) {
+        return configureCell(cell, new Color(255, 255, 255, 120));
     }
 
-    public int getHealth() {
-        System.out.println("Health: " + health);
-        return health;
-    }
+    private JComponent configureCell(JComponent cell, Color color) {
+        if (cell instanceof JLabel label) {
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+        }
 
-    public void setHealth(int health) {
-        this.health = health;
+        cell.setBackground(color);
+        cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        cell.setOpaque(true);
+        cell.setPreferredSize(new Dimension(40, 40));
+        return cell;
     }
 
     public void displayEndMenu(PicturePanel pp) {
@@ -180,15 +108,24 @@ public class Board {
         frame.setResizable(false);
     }
 
+    public List<HittableButton> getPlayerButtons() {
+        return playerButtons;
+    }
+
+    public List<HittableButton> getOtherButtons() {
+        return otherButtons;
+    }
+
     public Client getClient() {
         return client;
     }
 
-    public List<HittableButton> getPlayerBoard() {
-        return playerBoard;
+    public int getHealth() {
+        System.out.println("Health: " + health);
+        return health;
     }
 
-    public List<HittableButton> getOtherBoard() {
-        return otherBoard;
+    public void setHealth(int health) {
+        this.health = health;
     }
 }
