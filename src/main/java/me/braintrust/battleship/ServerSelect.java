@@ -10,7 +10,7 @@ public class ServerSelect extends JFrame {
 
     private final JButton sendButton = new JButton("Start");
     private final JTextField serverField = new JTextField(20);
-    private final JLabel label = new JLabel("Enter main.java.battleship.Server IP:");
+    private final JLabel label = new JLabel("Enter Server IP:");
 
     public ServerSelect() {
         setLayout(new FlowLayout());
