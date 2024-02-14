@@ -16,7 +16,7 @@ public class SetupBoard extends JFrame {
         //JFrame frame = new JFrame();
         this.backend = backend;
         //this.client = client;
-        JPanel root = new PicturePanel(".\\production\\BattleShip\\theFleet.jpg");
+        JPanel root = new PicturePanel(".//production//BattleShip//theFleet.jpg");
         JPanel serverSelect = new JPanel();
         JPanel board = new JPanel();
 
