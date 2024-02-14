@@ -11,7 +11,8 @@
 
     public class Client {
     public static void main(String[] args) {
-        new ServerSelect();
+        //new ServerSelect();
+        new Client("192.168.56.1");
     }
 
     private static String lastData = "";
@@ -20,7 +21,7 @@
     public int lastShotX = 0;
     public int lastShotY = 0;
 
-    private Board board = new Board(this);
+    private Board board;// = new Board(this);
 
     // Generate a UID for this client
     // This is generated at runtime for each client,
@@ -31,8 +32,9 @@
         Scanner scanner = new Scanner(System.in);
         this.serverIP = ip;
 
-        Backend backend = new Backend(scanner);
+        Backend backend = new Backend(scanner, this);
         // create GUI here
+        this.board = new Board(this);
 
         for (Ship s : backend.getShips()) {
             for (Point p : s.points) {
@@ -136,7 +138,7 @@
                     ErrorHandler.handleError(e);
                 }
             }
-        }, 0, 1000); // Check every second
+        }, 0, 100); // Check every second
     }
 
     public void postData(int xCoord, int yCoord, int didHit, int didLose, int endTurn, Board board) {
@@ -222,11 +224,12 @@
         lastData = response.toString();
 
 
-        System.out.println("MADE IT HERE");
+        //System.out.println("MADE IT HERE");
 
 
         //If junk data, return
 
+        //Client is getting shot at
         if(xCoord < 10){
             if (board.playerBoard.get(yCoord * 10 + xCoord).hit()) {//If true a ship was hit
                 if (board.getHealth() < 1) {
@@ -258,5 +261,9 @@
         //Check endTurn last so board gets properly updated before buttons are enabled
         //System.out.println("thing:" + Arrays.toString(response.toString().split(",")));
 
+    }
+
+    public void setIP(String ip) {
+        serverIP = ip;
     }
     }

@@ -18,7 +18,7 @@ public class Board {
     private Client client;
     public Board(Client client) {
         this.client = client;
-        PicturePanel root = new PicturePanel("battleship.jpg");
+        PicturePanel root = new PicturePanel(".\\production\\BattleShip\\battleship.jpg");
         GridBagLayout lay = new GridBagLayout();
         root.setLayout(lay);
         GridBagConstraints c = new GridBagConstraints();
@@ -74,7 +74,7 @@ public class Board {
                 root.add(topRow, c);
 
                 }
-                HittablePanel p = new HittablePanel();
+                JPanel p = new JPanel();
                 p.setOpaque(false);
                 c.ipadx = 100;
                 c.ipady = 20;
@@ -180,7 +180,7 @@ public class Board {
 
 
     public void losingMenu() {
-        PicturePanel loss = new PicturePanel("loss.jpg");
+        PicturePanel loss = new PicturePanel(".\\production\\BattleShip\\loss.jpg");
         /*JLabel losingText = new JLabel("YOU LOST");
         loss.add(losingText);*/
         frame.dispose();
@@ -193,7 +193,7 @@ public class Board {
     }
 
     public void winningMenu() {
-        PicturePanel loss = new PicturePanel("pepewin.jpg");
+        PicturePanel loss = new PicturePanel(".\\production\\BattleShip\\pepewin.jpg");
         /*JLabel losingText = new JLabel("YOU LOST");
         loss.add(losingText);*/
         frame.dispose();

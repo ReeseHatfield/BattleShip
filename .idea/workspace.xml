@@ -6,13 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="757fcef0-4ef3-4909-9e8a-6f4746d461c2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Backend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HittableButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HittableButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerSelect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerSelect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/battleship.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/loss.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pepewin.jpg" beforeDir="false" />
     </list>
-    <list id="4a5e18d1-cf31-447c-b595-fefa63b90591" name="Changes by reesehatfield" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board.java" afterDir="false" />
-    </list>
+    <list id="4a5e18d1-cf31-447c-b595-fefa63b90591" name="Changes by reesehatfield" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,23 +32,6 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/Client.java" root0="SKIP_INSPECTION" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/Board.java">
-      <ranges>
-        <range start1="5" end1="6" start2="5" end2="5" changelist="4a5e18d1-cf31-447c-b595-fefa63b90591" />
-        <range start1="8" end1="10" start2="7" end2="9" changelist="4a5e18d1-cf31-447c-b595-fefa63b90591" />
-        <range start1="50" end1="51" start2="49" end2="50" changelist="757fcef0-4ef3-4909-9e8a-6f4746d461c2" />
-        <range start1="64" end1="65" start2="63" end2="64" changelist="4a5e18d1-cf31-447c-b595-fefa63b90591" />
-        <range start1="110" end1="113" start2="109" end2="112" changelist="757fcef0-4ef3-4909-9e8a-6f4746d461c2" />
-        <range start1="114" end1="115" start2="113" end2="114" changelist="757fcef0-4ef3-4909-9e8a-6f4746d461c2" />
-        <range start1="120" end1="121" start2="119" end2="120" changelist="757fcef0-4ef3-4909-9e8a-6f4746d461c2" />
-        <range start1="134" end1="136" start2="133" end2="135" changelist="4a5e18d1-cf31-447c-b595-fefa63b90591" />
-        <range start1="171" end1="172" start2="170" end2="171" changelist="4a5e18d1-cf31-447c-b595-fefa63b90591" />
-        <range start1="174" end1="175" start2="173" end2="174" changelist="4a5e18d1-cf31-447c-b595-fefa63b90591" />
-        <range start1="180" end1="180" start2="179" end2="180" changelist="4a5e18d1-cf31-447c-b595-fefa63b90591" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -71,7 +56,7 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;20&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/johnt/githubDirectories/BattleShip&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/johnt/IdeaProjects/Game1181&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -85,6 +70,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\johnt\githubDirectories\BattleShip\src\production\BattleShip\production" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.Client">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Client" />
@@ -138,6 +128,15 @@
       <workItem from="1695238728216" duration="25000" />
       <workItem from="1695238803813" duration="609000" />
       <workItem from="1695239433017" duration="15947000" />
+      <workItem from="1697572220444" duration="80000" />
+      <workItem from="1697575710260" duration="552000" />
+      <workItem from="1697647680010" duration="1045000" />
+      <workItem from="1706130365941" duration="11510000" />
+      <workItem from="1706207812242" duration="6537000" />
+      <workItem from="1706222505530" duration="1041000" />
+      <workItem from="1706637227844" duration="144000" />
+      <workItem from="1706831600313" duration="428000" />
+      <workItem from="1707840113166" duration="628000" />
     </task>
     <servers />
   </component>
